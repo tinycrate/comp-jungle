@@ -1,0 +1,10 @@
+# Ignore gradle cache
+/.gradle
+
+# Ignore local workspace propertices
+/.idea/workspace.xml
+
+# Ignore build path
+/build
+/out
+
