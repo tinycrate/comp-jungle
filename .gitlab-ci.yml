@@ -1,0 +1,25 @@
+image: openjdk:8-jdk
+
+stages:
+  - build
+  - coverage
+
+before_script:
+  - ./gradlew
+
+after_script:
+  - ./gradlew clean
+
+build:
+  stage: build
+  script:
+    - ./gradlew build
+  tags:
+    - jdk:8
+
+coverage:
+  stage: coverage
+  script:
+    - ./gradlew test jacocoTestReport
+    - cat build/jacoco/html/index.html
+  coverage: '/Total.*?([0-9]{1,3})%/'
