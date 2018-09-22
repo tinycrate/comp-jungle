@@ -1,10 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'jacoco'
 }
 
 group 'hk.edu.polyu.comp.comp2021'
 version '1.0'
-
+mainClassName = 'hk.edu.polyu.comp.comp2021.jungle.Application'
 sourceCompatibility = 1.8
 
 repositories {
@@ -31,5 +33,26 @@ sourceSets {
         resources {
             srcDirs = ['test-resources']
         }
+    }
+}
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+        excludes = ['hk.edu.polyu.comp.comp2021.jungle.Application']
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.1"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacoco/html")
     }
 }
