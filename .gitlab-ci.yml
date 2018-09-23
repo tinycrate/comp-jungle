@@ -22,4 +22,12 @@ coverage:
   script:
     - ./gradlew test jacocoTestReport
     - cat build/jacoco/html/index.html
+    - mv build/jacoco/html/ public/
   coverage: '/Total.*?([0-9]{1,3})%/'
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - master
+      
