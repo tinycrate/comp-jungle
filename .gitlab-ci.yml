@@ -2,32 +2,42 @@ image: openjdk:8-jdk
 
 stages:
   - build
-  - coverage
+  - test
+  - deploy
+
 
 before_script:
   - ./gradlew
 
-after_script:
-  - ./gradlew clean
-
-build:
+cache:
+compile:
   stage: build
   script:
-    - ./gradlew build
+    - ./gradlew assemble
   tags:
     - jdk:8
 
 coverage:
-  stage: coverage
+  stage: test
   script:
     - ./gradlew test jacocoTestReport
     - cat build/jacoco/html/index.html
-    - mv build/jacoco/html/ public/
   coverage: '/Total.*?([0-9]{1,3})%/'
+  artifacts:
+    paths:
+      - build/jacoco/html/
+  only:
+    - master
+
+pages:
+  stage: deploy
+  dependencies: 
+    - coverage
+  script:
+    - mv build/jacoco/html/ public/
   artifacts:
     paths:
       - public
     expire_in: 30 days
   only:
     - master
-      
