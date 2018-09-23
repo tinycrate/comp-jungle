@@ -6,6 +6,7 @@ plugins {
 
 group 'hk.edu.polyu.comp.comp2021'
 version '1.0'
+
 mainClassName = 'hk.edu.polyu.comp.comp2021.jungle.Application'
 sourceCompatibility = 1.8
 
@@ -17,22 +18,20 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+jar {
+    manifest {
+        attributes('Main-Class': mainClassName)
+    }
+}
+
 sourceSets {
     main {
-        java {
-            srcDirs = ['src']
-        }
-        resources {
-            srcDirs = ['resources']
-        }
+        java { srcDirs = ['src'] }
+        resources { srcDirs = ['resources'] }
     }
     test {
-        java {
-            srcDirs = ['test']
-        }
-        resources {
-            srcDirs = ['test-resources']
-        }
+        java { srcDirs = ['test'] }
+        resources { srcDirs = ['test-resources'] }
     }
 }
 
@@ -50,8 +49,8 @@ jacoco {
 
 jacocoTestReport {
     reports {
-        xml.enabled false
-        csv.enabled false
+        xml.enabled = false
+        csv.enabled = false
         html.destination file("${buildDir}/jacoco/html")
     }
     afterEvaluate {
