@@ -5,10 +5,6 @@ stages:
   - test
   - deploy
 
-
-before_script:
-  - ./gradlew
-
 cache:
 compile:
   stage: build

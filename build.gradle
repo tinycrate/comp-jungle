@@ -41,7 +41,6 @@ test {
         append = false
         destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
         classDumpDir = file("$buildDir/jacoco/classpathdumps")
-        excludes = ['hk.edu.polyu.comp.comp2021.jungle.Application']
     }
 }
 
@@ -54,5 +53,12 @@ jacocoTestReport {
         xml.enabled false
         csv.enabled false
         html.destination file("${buildDir}/jacoco/html")
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '/hk/edu/polyu/comp/comp2021/jungle/Application.class'
+            ])
+        })
     }
 }
