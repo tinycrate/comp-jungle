@@ -1,12 +1,11 @@
-package hk.edu.polyu.comp.comp2021.jungle.model;
+package hk.edu.polyu.comp.comp2021.jungle.common.models;
 
-import hk.edu.polyu.comp.comp2021.jungle.model.JungleGame;
 import org.junit.Test;
 
 
 public class JungleGameTest {
     @org.junit.Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
     }
 

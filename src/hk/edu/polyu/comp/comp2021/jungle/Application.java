@@ -1,12 +1,11 @@
 package hk.edu.polyu.comp.comp2021.jungle;
 
-import hk.edu.polyu.comp.comp2021.jungle.model.JungleGame;
+import hk.edu.polyu.comp.comp2021.jungle.common.controllers.ApplicationController;
 
 public class Application {
 
     public static void main(String[] args){
-        JungleGame game = new JungleGame();
-
-        // start playing the game
+        ApplicationController app = new ApplicationController();
+        app.Run();
     }
 }
