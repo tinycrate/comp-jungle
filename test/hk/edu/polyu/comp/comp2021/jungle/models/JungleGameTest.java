@@ -2,15 +2,16 @@ package hk.edu.polyu.comp.comp2021.jungle.models;
 
 import org.junit.Test;
 
-
+/**
+ * Unit test for JungleGame
+ */
 public class JungleGameTest {
-    @org.junit.Before
-    public void setUp() {
 
-    }
-
+    /**
+     * Test case for the constructor
+     */
     @Test
-    public void testJungleGameConstructor(){
+    public void testJungleGameConstructor() {
         JungleGame game = new JungleGame();
         assert true;
     }
