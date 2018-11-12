@@ -1,6 +1,6 @@
 package hk.edu.polyu.comp.comp2021.jungle;
 
-import hk.edu.polyu.comp.comp2021.jungle.common.controllers.ApplicationController;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.ApplicationController;
 
 public class Application {
 
