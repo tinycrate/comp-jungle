@@ -1,4 +1,4 @@
-package hk.edu.polyu.comp.comp2021.jungle.common.models;
+package hk.edu.polyu.comp.comp2021.jungle.models;
 
 import org.junit.Test;
 
