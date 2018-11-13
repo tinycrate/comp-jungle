@@ -15,7 +15,7 @@ public enum TileType {
     RIVER("River"),
 
     /**
-     * Traps makes any animal's rank 0 when being stepped on
+     * Traps makes any animal eatable when stepped on regardless of their rank
      */
     TRAP("Trap"),
 
