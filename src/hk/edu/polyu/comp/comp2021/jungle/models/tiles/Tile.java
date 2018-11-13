@@ -1,6 +1,5 @@
 package hk.edu.polyu.comp.comp2021.jungle.models.tiles;
 
-import com.sun.istack.internal.Nullable;
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 
 /**
@@ -39,7 +38,6 @@ public class Tile {
     /**
      * @return Returns the piece which is currently occupying the tile, returns null if none are occupying
      */
-    @Nullable
     public Piece getOccupiedPiece() {
         return occupiedPiece;
     }
@@ -49,7 +47,7 @@ public class Tile {
      *
      * @param occupiedPiece The piece to replace
      */
-    public void setOccupiedPiece(@Nullable Piece occupiedPiece) {
+    public void setOccupiedPiece(Piece occupiedPiece) {
         this.occupiedPiece = occupiedPiece;
     }
 }
