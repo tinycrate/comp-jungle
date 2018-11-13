@@ -3,6 +3,7 @@
 
 # Ignore local workspace propertices
 /.idea/workspace.xml
+/.idea/uiDesigner.xml
 
 # Ignore build path
 /build
