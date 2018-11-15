@@ -1,57 +1,37 @@
 package hk.edu.polyu.comp.comp2021.jungle.models.tiles;
 
+import hk.edu.polyu.comp.comp2021.jungle.models.Player;
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 
 /**
- * This class represent a tile on a board
+ * This interface defines the required methods of a tile on a board
  */
-public class Tile {
-    private final TileType tileType;
-    private Piece occupiedPiece = null;
-
-    /**
-     * Creates a Tile
-     *
-     * @param tileType The type of the tile
-     */
-    public Tile(TileType tileType) {
-        this.tileType = tileType;
-    }
-
-    /**
-     * Copy constructer for type Tile
-     *
-     * @param tile Tile to copy from
-     */
-    public Tile(Tile tile) {
-        this.tileType = tile.getTileType();
-        this.occupiedPiece = tile.getOccupiedPiece();
-    }
-
+public interface Tile {
     /**
      * Returns the tile type
      *
      * @return Tile type
      */
-    public TileType getTileType() {
-        return tileType;
-    }
+    TileType getTileType();
+
+    /**
+     * Returns the owner of the tile, null if the tile is not owned
+     *
+     * @return Player
+     */
+    Player getOwner();
 
     /**
      * Returns the piece which is currently occupying the tile, returns null if none are occupying
      *
      * @return The occupying piece
      */
-    public Piece getOccupiedPiece() {
-        return occupiedPiece;
-    }
+    Piece getOccupiedPiece();
 
     /**
      * Set the current occupying piece for a tile
      *
      * @param occupiedPiece The piece to replace
      */
-    public void setOccupiedPiece(Piece occupiedPiece) {
-        this.occupiedPiece = occupiedPiece;
-    }
+    void setOccupiedPiece(Piece occupiedPiece);
 }

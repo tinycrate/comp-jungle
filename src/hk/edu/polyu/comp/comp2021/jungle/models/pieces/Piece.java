@@ -2,6 +2,7 @@ package hk.edu.polyu.comp.comp2021.jungle.models.pieces;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
+import hk.edu.polyu.comp.comp2021.jungle.models.Player;
 
 /**
  * An immutable base class for the game pieces (animals)
@@ -9,6 +10,7 @@ import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 public abstract class Piece {
     private final Board board;
     private final Coordinates coordinates;
+    private final Player owner;
 
     /**
      * Creates a Piece object with reference to the board and its coordinates
@@ -16,10 +18,12 @@ public abstract class Piece {
      *
      * @param board       The board the piece is currently on
      * @param coordinates The coordinares of the piece on the board
+     * @param owner       The owner of the piece
      */
-    protected Piece(Board board, Coordinates coordinates) {
+    protected Piece(Board board, Coordinates coordinates, Player owner) {
         this.board = board;
         this.coordinates = coordinates;
+        this.owner = owner;
     }
 
     /**
@@ -36,6 +40,13 @@ public abstract class Piece {
      * @return True if the move is possible
      */
     public abstract boolean isMoveableTo(Coordinates coords);
+
+    /**
+     * @return The owner of the piece
+     */
+    public Player getOwner() {
+        return owner;
+    }
 
     /**
      * @return The coordinates of the piece
