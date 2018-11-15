@@ -22,6 +22,12 @@ public interface Tile {
     Player getOwner();
 
     /**
+     * Checks if the tile is occupied by someone
+     * @return True if the tile is occupied
+     */
+    boolean isOccupied();
+
+    /**
      * Returns the piece which is currently occupying the tile, returns null if none are occupying
      *
      * @return The occupying piece

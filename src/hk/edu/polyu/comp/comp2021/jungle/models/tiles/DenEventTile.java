@@ -60,6 +60,11 @@ public class DenEventTile implements Tile {
     }
 
     @Override
+    public boolean isOccupied() {
+        return false;
+    }
+
+    @Override
     public Piece getOccupiedPiece() {
         return null;
     }
