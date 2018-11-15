@@ -64,9 +64,9 @@ public class DenEventTile implements Tile {
         return null;
     }
 
-    private void TriggerEvents(Player playerOrign) {
+    private void TriggerEvents(Player triggeredPlayer) {
         for (DenEventListener listener : listeners) {
-            listener.OnTrigger(playerOrign);
+            listener.OnTrigger(triggeredPlayer);
         }
     }
 }
