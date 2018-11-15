@@ -26,7 +26,7 @@ public enum TileType {
     DEN("Den", true);
 
     private final String name;
-    private boolean eventTile;
+    private final boolean eventTile;
 
     TileType(String name, boolean eventTile) {
         this.name = name;
