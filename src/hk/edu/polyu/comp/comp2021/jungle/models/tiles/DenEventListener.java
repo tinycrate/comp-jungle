@@ -10,7 +10,7 @@ public interface DenEventListener {
     /**
      * Called when the event is being triggered
      *
-     * @param playerOrign Player who originally triggers the event
+     * @param triggeredPlayer Player who originally triggers the event
      */
-    void OnTrigger(Player playerOrign);
+    void OnTrigger(Player triggeredPlayer);
 }
