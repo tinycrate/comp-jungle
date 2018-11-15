@@ -1,6 +1,6 @@
 package hk.edu.polyu.comp.comp2021.jungle.models;
 
-import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
+import hk.edu.polyu.comp.comp2021.jungle.models.tiles.GameTile;
 
 /**
  * This class holds the states of the game board
@@ -16,7 +16,7 @@ public class Board {
      */
     public static final int BOARD_HEIGHT = 9;
 
-    private Tile[][] tiles = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
+    private GameTile[][] tiles = new GameTile[BOARD_WIDTH][BOARD_HEIGHT];
 
     /**
      * Gets a tile by coordinates
@@ -24,7 +24,7 @@ public class Board {
      * @param coords The coordinates
      * @return The Tile in that coordinates
      */
-    public Tile getTile(Coordinates coords) {
-        return new Tile(tiles[coords.getX()][coords.getY()]);
+    public GameTile getTile(Coordinates coords) {
+        return new GameTile(tiles[coords.getX()][coords.getY()]);
     }
 }
