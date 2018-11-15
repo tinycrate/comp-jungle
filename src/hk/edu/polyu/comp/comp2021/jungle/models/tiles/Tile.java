@@ -29,14 +29,18 @@ public class Tile {
     }
 
     /**
-     * @return Returns the tile type
+     * Returns the tile type
+     *
+     * @return Tile type
      */
     public TileType getTileType() {
         return tileType;
     }
 
     /**
-     * @return Returns the piece which is currently occupying the tile, returns null if none are occupying
+     * Returns the piece which is currently occupying the tile, returns null if none are occupying
+     *
+     * @return The occupying piece
      */
     public Piece getOccupiedPiece() {
         return occupiedPiece;

@@ -31,7 +31,9 @@ public enum TileType {
     }
 
     /**
-     * @return Returns the name of the tile
+     * Returns the name of the tile
+     *
+     * @return Name
      */
     public String getName() {
         return name;

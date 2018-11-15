@@ -49,14 +49,18 @@ public class Coordinates {
     }
 
     /**
-     * @return Returns the x coordinate
+     * Returns the x coordinate
+     *
+     * @return x
      */
     public int getX() {
         return x;
     }
 
     /**
-     * @return Returns the y coordinates
+     * Returns the y coordinates
+     *
+     * @return y
      */
     public int getY() {
         return y;

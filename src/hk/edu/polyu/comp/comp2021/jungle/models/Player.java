@@ -16,14 +16,16 @@ public class Player {
     }
 
     /**
-     * @return Returns the name of the player
+     * Returns the name of the player
+     *
+     * @return Name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name Sets the name of the player
+     * @param name Name of the player
      */
     public void setName(String name) {
         this.name = name;
