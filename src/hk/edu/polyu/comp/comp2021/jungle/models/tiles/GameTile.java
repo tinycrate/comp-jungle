@@ -43,6 +43,11 @@ public class GameTile implements Tile {
     }
 
     @Override
+    public boolean isOccupied() {
+        return getOccupiedPiece() != null;
+    }
+
+    @Override
     public Piece getOccupiedPiece() {
         return occupiedPiece;
     }
