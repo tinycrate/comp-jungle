@@ -19,7 +19,7 @@ public abstract class BasicPiece extends Piece {
      * @param coordinates The coordinares of the piece on the board
      * @param owner       The owner of the piece
      */
-    public BasicPiece(Board board, Coordinates coordinates, Player owner) {
+    BasicPiece(Board board, Coordinates coordinates, Player owner) {
         super(board, coordinates, owner);
     }
 

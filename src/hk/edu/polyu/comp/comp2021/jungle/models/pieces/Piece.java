@@ -20,7 +20,7 @@ public abstract class Piece {
      * @param coordinates The coordinares of the piece on the board
      * @param owner       The owner of the piece
      */
-    protected Piece(Board board, Coordinates coordinates, Player owner) {
+    Piece(Board board, Coordinates coordinates, Player owner) {
         this.board = board;
         this.coordinates = coordinates;
         this.owner = owner;
