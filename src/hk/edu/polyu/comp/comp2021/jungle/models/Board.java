@@ -16,7 +16,7 @@ public class Board {
      */
     public static final int BOARD_HEIGHT = 9;
 
-    private GameTile[][] tiles = new GameTile[BOARD_WIDTH][BOARD_HEIGHT];
+    private final GameTile[][] tiles = new GameTile[BOARD_WIDTH][BOARD_HEIGHT];
 
     /**
      * Gets a tile by coordinates
