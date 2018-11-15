@@ -38,14 +38,16 @@ public abstract class Piece {
     public abstract boolean isMoveableTo(Coordinates coords);
 
     /**
-     * @return Returns the coordinates of the piece
+     * @return The coordinates of the piece
      */
     public Coordinates getCoordinates() {
         return coordinates;
     }
 
     /**
-     * @return Returns the board the piece belongs to
+     * Returns the board the piece belongs to
+     *
+     * @return Board
      */
     public Board getBoard() {
         return board;
