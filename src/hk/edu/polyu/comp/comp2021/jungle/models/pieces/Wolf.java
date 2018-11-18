@@ -1,6 +1,5 @@
 package hk.edu.polyu.comp.comp2021.jungle.models.pieces;
 
-import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.Player;
 
