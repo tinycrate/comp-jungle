@@ -7,30 +7,32 @@ public enum TileType {
     /**
      * Grass tiles are "blank" tiles that could be moved to without constraints
      */
-    GRASS("Grass", false),
+    GRASS("Grass", true),
 
     /**
      * River tiles could be walked onto by Rat and jumped over by Lion and Tiger
      */
-    RIVER("River", false),
+    RIVER("River", true),
 
     /**
-     * Traps makes any animal eatable when stepped on regardless of their rank
+     * Traps weakens any opponent animal which makes them eatable by animals of any ranks
+     * This tile is not neutral and will be owned by either of the players
      */
     TRAP("Trap", false),
 
     /**
      * Den is not moveable to by friendly animals. A player wins when they reaches the opponent's den
+     * This tile is not neutral and will be owned by either of the players
      * This tile is an event tile and will signal a gameover when a piece is successfully being moved to
      */
-    DEN("Den", true);
+    DEN("Den", false);
 
     private final String name;
-    private final boolean eventTile;
+    private final boolean neutralTile;
 
-    TileType(String name, boolean eventTile) {
+    TileType(String name, boolean neutralTile) {
         this.name = name;
-        this.eventTile = eventTile;
+        this.neutralTile = neutralTile;
     }
 
     /**
@@ -43,13 +45,13 @@ public enum TileType {
     }
 
     /**
-     * Returns whether a tile is an event tile
-     * A event tile behaves differently than normal game tile as it might trigger major game events
+     * Returns whether a tile is neutral
+     * A neutral tiles do not have a permanent owner
      *
-     * @return True if the tile is special
+     * @return True if the tile is neutral
      */
-    public boolean isEventTile(){
-        return eventTile;
+    public boolean isNeutralTile(){
+        return neutralTile;
     }
 
 }

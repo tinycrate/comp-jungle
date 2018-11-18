@@ -55,6 +55,11 @@ public class Rat extends Piece {
         }
 
         // Rats can only eat animals in the trap or Elephants
-        return destination.getTileType() == TileType.TRAP || destination.getOccupiedPiece() instanceof Elephant;
+        if (destination.isOccupied()) {
+            Piece opponent = destination.getOccupiedPiece();
+            return opponent.isWeakenByTrap() || opponent instanceof Elephant;
+        }
+
+        return true;
     }
 }

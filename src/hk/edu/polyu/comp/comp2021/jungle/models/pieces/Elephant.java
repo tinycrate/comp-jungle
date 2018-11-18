@@ -44,6 +44,11 @@ public class Elephant extends Piece {
         if (tile.getOwner() == getOwner()) return false;
 
         // Running into a rat is not allowed unless it's in a trap, otherwise anything can be eaten
-        return !tile.isOccupied() || tile.getTileType() == TileType.TRAP || !(tile.getOccupiedPiece() instanceof Rat);
+        if (tile.isOccupied()) {
+            Piece opponent = tile.getOccupiedPiece();
+            return opponent.isWeakenByTrap() || !(opponent instanceof Rat);
+        }
+
+        return true;
     }
 }

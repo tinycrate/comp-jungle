@@ -6,28 +6,28 @@ import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 /**
  * This class represent a normal game tile on a board
  */
-public class GameTile implements Tile {
+public class NeutralTile extends Tile {
     private final TileType tileType;
     private Piece occupiedPiece = null;
 
     /**
-     * Creates a GameTile
+     * Creates a NeutralTile
      *
-     * @param tileType The type of the tile, event tiles are not accepted
+     * @param tileType The type of the tile, tiles not neutral are not accepted
      */
-    public GameTile(TileType tileType) {
-        if (tileType.isEventTile()) {
-            throw new IllegalArgumentException("Event tiles could not be used as tileType for GameTile");
+    public NeutralTile(TileType tileType) {
+        if (!tileType.isNeutralTile()) {
+            throw new IllegalArgumentException("Non-neutral tiles could not be used as tileType for NeutralTile");
         }
         this.tileType = tileType;
     }
 
     /**
-     * Copy constructer for type GameTile
+     * Copy constructer for type NeutralTile
      *
-     * @param tile GameTile to copy from
+     * @param tile NeutralTile to copy from
      */
-    public GameTile(GameTile tile) {
+    public NeutralTile(NeutralTile tile) {
         this.tileType = tile.getTileType();
         this.occupiedPiece = tile.getOccupiedPiece();
     }
@@ -43,11 +43,6 @@ public class GameTile implements Tile {
     }
 
     @Override
-    public boolean isOccupied() {
-        return getOccupiedPiece() != null;
-    }
-
-    @Override
     public Piece getOccupiedPiece() {
         return occupiedPiece;
     }
@@ -55,5 +50,10 @@ public class GameTile implements Tile {
     @Override
     public void setOccupiedPiece(Piece occupiedPiece) {
         this.occupiedPiece = occupiedPiece;
+    }
+
+    @Override
+    public Tile getClone() {
+        return new NeutralTile(this);
     }
 }
