@@ -8,20 +8,29 @@ import java.util.List;
 
 /**
  * This class represents a den event tile, which triggers DenEventListener when a piece is successfully moved to
- * A DenEventTile is assigned to each Player
+ * A DenTile is assigned to each Player
  */
-public class DenEventTile implements Tile {
+public class DenTile extends Tile {
 
     private final Player owner;
-    private final List<DenEventListener> listeners = new ArrayList<>();
+    private transient List<DenEventListener> listeners;
 
     /**
-     * Creates a DenEventTile
+     * Creates a DenTile
      *
      * @param owner The owner of the tile
      */
-    public DenEventTile(Player owner) {
+    public DenTile(Player owner) {
         this.owner = owner;
+    }
+
+    /**
+     * Copy constructer for type DenTile
+     *
+     * @param tile DenTile to copy from
+     */
+    public DenTile(DenTile tile) {
+        this.owner = tile.getOwner();
     }
 
     /**
@@ -31,7 +40,7 @@ public class DenEventTile implements Tile {
      * @return True if successful
      */
     public boolean SubscribeEvent(DenEventListener listener) {
-        return listeners.add(listener);
+        return getListeners().add(listener);
     }
 
     /**
@@ -41,7 +50,7 @@ public class DenEventTile implements Tile {
      * @return True if successful
      */
     public boolean UnsubscribeEvent(DenEventListener listener) {
-        return listeners.remove(listener);
+        return getListeners().remove(listener);
     }
 
     @Override
@@ -60,18 +69,27 @@ public class DenEventTile implements Tile {
     }
 
     @Override
-    public boolean isOccupied() {
-        return false;
-    }
-
-    @Override
     public Piece getOccupiedPiece() {
         return null;
     }
 
+    @Override
+    public Tile getClone() {
+        return new DenTile(this);
+    }
+
     private void TriggerEvents(Player triggeredPlayer) {
-        for (DenEventListener listener : listeners) {
+        for (DenEventListener listener : getListeners()) {
             listener.OnTrigger(triggeredPlayer);
         }
+    }
+
+    /**
+     * Locks the access of listeners behind a getter to lazy load the listeners field if needed
+     * This is because the reference of listeners could be set to null after deserialization as constructors will not be called
+     */
+    private List<DenEventListener> getListeners() {
+        if (listeners == null) listeners = new ArrayList<>();
+        return listeners;
     }
 }

@@ -3,6 +3,8 @@ package hk.edu.polyu.comp.comp2021.jungle.models.pieces;
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.Player;
+import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
+import hk.edu.polyu.comp.comp2021.jungle.models.tiles.TileType;
 
 import java.io.Serializable;
 
@@ -32,6 +34,16 @@ public abstract class Piece implements Serializable {
      * @return The rank of the piece.
      */
     public abstract int getRank();
+
+    /**
+     * Checks if the piece is being weaken by an enemy trap
+     *
+     * @return True if the piece is being weaken
+     */
+    public boolean isWeakenByTrap() {
+        Tile tile = board.getTile(coordinates);
+        return tile.getTileType() == TileType.TRAP && tile.getOwner() != owner;
+    }
 
     /**
      * Checks whether the piece could be moved to a tile of a certain coordinates

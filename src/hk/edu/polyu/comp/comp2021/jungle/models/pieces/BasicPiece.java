@@ -39,9 +39,9 @@ public abstract class BasicPiece extends Piece {
         if (tile.getOwner() == getOwner()) return false;
 
         // Running into an animal with higher rank is not allowed unless it's in a trap
-        if (tile.isOccupied() && tile.getTileType() != TileType.TRAP) {
+        if (tile.isOccupied()) {
             Piece opponent = tile.getOccupiedPiece();
-            return opponent.getRank() <= getRank();
+            return opponent.isWeakenByTrap() || opponent.getRank() <= getRank();
         }
 
         return true;
