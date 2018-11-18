@@ -37,6 +37,7 @@ public class Coordinates implements Serializable {
 
     /**
      * Construct the class with a string value
+     * Note: The string notation for the y axis is reversed
      *
      * @param coords The coordinates in String format: "A1" ~ "G9"
      */
@@ -44,7 +45,7 @@ public class Coordinates implements Serializable {
         coords = coords.toUpperCase();
         if (isValid(coords)) {
             this.x = coords.charAt(0) - 'A';
-            this.y = coords.charAt(1) - '1';
+            this.y = 8 - coords.charAt(1) - '1';
         } else {
             throw new IllegalArgumentException("Invalid string coordinates specified");
         }
