@@ -50,4 +50,9 @@ public class Elephant extends Piece {
 
         return true;
     }
+
+    @Override
+    public String getSymbol() {
+        return "象";
+    }
 }

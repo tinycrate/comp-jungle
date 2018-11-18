@@ -61,4 +61,9 @@ public class Rat extends Piece {
 
         return true;
     }
+
+    @Override
+    public String getSymbol() {
+        return "鼠";
+    }
 }

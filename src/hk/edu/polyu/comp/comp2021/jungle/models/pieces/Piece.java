@@ -67,4 +67,11 @@ public abstract class Piece implements Serializable {
     public Coordinates getCoordinates() {
         return coordinates;
     }
+
+    /**
+     * Gets the sybmol representing the piece
+     *
+     * @return The symbol for the piece
+     */
+    public abstract String getSymbol();
 }

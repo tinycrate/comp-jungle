@@ -23,4 +23,9 @@ public class Tiger extends RiverJumperPiece {
     public int getRank() {
         return 6;
     }
+
+    @Override
+    public String getSymbol() {
+        return "虎";
+    }
 }

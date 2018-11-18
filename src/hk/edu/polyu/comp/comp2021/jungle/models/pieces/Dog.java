@@ -23,4 +23,9 @@ public class Dog extends BasicPiece {
     public int getRank() {
         return 3;
     }
+
+    @Override
+    public String getSymbol() {
+        return "狗";
+    }
 }
