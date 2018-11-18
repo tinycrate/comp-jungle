@@ -12,7 +12,6 @@ import java.io.Serializable;
  * An immutable base class for the game pieces (animals)
  */
 public abstract class Piece implements Serializable {
-    private final Board board;
     private final Coordinates coordinates;
     private final Player owner;
 
@@ -20,12 +19,10 @@ public abstract class Piece implements Serializable {
      * Creates a Piece object with reference to the board and its coordinates
      * Most likely called by board
      *
-     * @param board       The board the piece is currently on
      * @param coordinates The coordinares of the piece on the board
      * @param owner       The owner of the piece
      */
-    Piece(Board board, Coordinates coordinates, Player owner) {
-        this.board = board;
+    Piece(Coordinates coordinates, Player owner) {
         this.coordinates = coordinates;
         this.owner = owner;
     }
@@ -38,9 +35,10 @@ public abstract class Piece implements Serializable {
     /**
      * Checks if the piece is being weaken by an enemy trap
      *
+     * @param board The board where this piece is located at
      * @return True if the piece is being weaken
      */
-    public boolean isWeakenByTrap() {
+    public boolean isWeakenByTrap(Board board) {
         Tile tile = board.getTile(coordinates);
         return tile.getTileType() == TileType.TRAP && tile.getOwner() != owner;
     }
@@ -51,9 +49,10 @@ public abstract class Piece implements Serializable {
      * Inherited class should override this method if special rules have to be considered
      *
      * @param coords The coordinates to be checked
+     * @param board  The board where this piece is located at
      * @return True if the move is possible
      */
-    public abstract boolean isMoveableTo(Coordinates coords);
+    public abstract boolean isMoveableTo(Coordinates coords, Board board);
 
     /**
      * @return The owner of the piece
@@ -67,14 +66,5 @@ public abstract class Piece implements Serializable {
      */
     public Coordinates getCoordinates() {
         return coordinates;
-    }
-
-    /**
-     * Returns the board the piece belongs to
-     *
-     * @return Board
-     */
-    public Board getBoard() {
-        return board;
     }
 }

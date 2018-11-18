@@ -13,12 +13,11 @@ public class Dog extends BasicPiece {
      * Creates a Piece object with reference to the board and its coordinates
      * Most likely called by board
      *
-     * @param board       The board the piece is currently on
      * @param coordinates The coordinares of the piece on the board
      * @param owner       The owner of the piece
      */
-    public Dog(Board board, Coordinates coordinates, Player owner) {
-        super(board, coordinates, owner);
+    public Dog(Coordinates coordinates, Player owner) {
+        super(coordinates, owner);
     }
 
     @Override
