@@ -15,12 +15,11 @@ public class Rat extends Piece {
      * Creates a Piece object with reference to the board and its coordinates
      * Most likely called by board
      *
-     * @param board       The board the piece is currently on
      * @param coordinates The coordinares of the piece on the board
      * @param owner       The owner of the piece
      */
-    public Rat(Board board, Coordinates coordinates, Player owner) {
-        super(board, coordinates, owner);
+    public Rat(Coordinates coordinates, Player owner) {
+        super(coordinates, owner);
     }
 
     @Override
@@ -29,14 +28,14 @@ public class Rat extends Piece {
     }
 
     @Override
-    public boolean isMoveableTo(Coordinates coords) {
+    public boolean isMoveableTo(Coordinates coords, Board board) {
         // The animals are only allowed to move 1 tile in either direction
         if (Math.abs(coords.getX() - getCoordinates().getX()) + Math.abs(coords.getY() - getCoordinates().getY()) != 1) {
             return false;
         }
 
-        Tile source = getBoard().getTile(getCoordinates());
-        Tile destination = getBoard().getTile(coords);
+        Tile source = board.getTile(getCoordinates());
+        Tile destination = board.getTile(coords);
 
         // Runnning into friendly pieces or its own den is not allowed
         if (destination.getOwner() == getOwner()) return false;
@@ -57,7 +56,7 @@ public class Rat extends Piece {
         // Rats can only eat animals in the trap or Elephants
         if (destination.isOccupied()) {
             Piece opponent = destination.getOccupiedPiece();
-            return opponent.isWeakenByTrap() || opponent instanceof Elephant;
+            return opponent.isWeakenByTrap(board) || opponent instanceof Elephant;
         }
 
         return true;

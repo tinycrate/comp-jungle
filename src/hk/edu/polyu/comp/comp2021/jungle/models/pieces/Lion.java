@@ -13,12 +13,11 @@ public class Lion extends RiverJumperPiece {
      * Creates a Piece object with reference to the board and its coordinates
      * Most likely called by board
      *
-     * @param board       The board the piece is currently on
      * @param coordinates The coordinares of the piece on the board
      * @param owner       The owner of the piece
      */
-    public Lion(Board board, Coordinates coordinates, Player owner) {
-        super(board, coordinates, owner);
+    public Lion(Coordinates coordinates, Player owner) {
+        super(coordinates, owner);
     }
 
     @Override
