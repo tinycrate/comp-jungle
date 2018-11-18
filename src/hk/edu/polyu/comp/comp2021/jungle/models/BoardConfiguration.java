@@ -79,15 +79,17 @@ public final class BoardConfiguration implements Serializable {
     private static Tile[][] generateDefaultTiles(Player playerOne, Player playerTwo) {
         Tile[][] tiles = new Tile[Board.BOARD_WIDTH][Board.BOARD_HEIGHT];
         // Fill Grass
-        for (Tile[] column : tiles) {
-            Arrays.fill(column, new NeutralTile(TileType.GRASS));
+        for (int y = 0; y < Board.BOARD_HEIGHT; y++) {
+            for (int x = 0; x < Board.BOARD_WIDTH; x++) {
+                tiles[x][y] = new NeutralTile(TileType.GRASS);
+            }
         }
         // Fill River
-        for (int i = 1; i <= 2; i++) {
-            Arrays.fill(tiles[i], 3, 6, new NeutralTile(TileType.RIVER));
-        }
-        for (int i = 4; i <= 5; i++) {
-            Arrays.fill(tiles[i], 3, 6, new NeutralTile(TileType.RIVER));
+        for (int y = 1; y <= 5; y++) {
+            if (y == 3) continue;
+            for (int x = 3; x <= 5; x++) {
+                tiles[x][y] = new NeutralTile(TileType.RIVER);
+            }
         }
         // Fill Traps for player 1
         tiles[2][8] = new TrapTile(playerOne);
@@ -108,7 +110,7 @@ public final class BoardConfiguration implements Serializable {
             tiles[3 + 3 * mirror][4 + 4 * mirror].setOccupiedPiece(new Lion(new Coordinates(3 + 3 * mirror, 4 + 4 * mirror), player));
             // Middle
             tiles[3 - 2 * mirror][4 + 3 * mirror].setOccupiedPiece(new Cat(new Coordinates(3 - 2 * mirror, 4 + 3 * mirror), player));
-            tiles[3 + 2 * mirror][4 + 3 * mirror].setOccupiedPiece(new Cat(new Coordinates(3 + 2 * mirror, 4 + 3 * mirror), player));
+            tiles[3 + 2 * mirror][4 + 3 * mirror].setOccupiedPiece(new Dog(new Coordinates(3 + 2 * mirror, 4 + 3 * mirror), player));
             // Frontline
             tiles[3 - 3 * mirror][4 + 2 * mirror].setOccupiedPiece(new Elephant(new Coordinates(3 - 3 * mirror, 4 + 2 * mirror), player));
             tiles[3 - mirror][4 + 2 * mirror].setOccupiedPiece(new Wolf(new Coordinates(3 - mirror, 4 + 2 * mirror), player));
