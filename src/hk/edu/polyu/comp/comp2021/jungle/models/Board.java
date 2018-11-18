@@ -1,13 +1,11 @@
 package hk.edu.polyu.comp.comp2021.jungle.models;
 
-import hk.edu.polyu.comp.comp2021.jungle.models.tiles.GameTile;
-
-import java.io.Serializable;
+import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
 
 /**
  * This class holds the states of the game board
  */
-public class Board implements Serializable {
+public class Board {
     /**
      * The width of the board
      */
@@ -18,7 +16,16 @@ public class Board implements Serializable {
      */
     public static final int BOARD_HEIGHT = 9;
 
-    private final GameTile[][] tiles = new GameTile[BOARD_WIDTH][BOARD_HEIGHT];
+    private final Tile[][] tiles;
+
+    /**
+     * Initialize a board with a specific BoardConfiguration
+     *
+     * @param configuration The configuration of the board
+     */
+    public Board(BoardConfiguration configuration) {
+        tiles = configuration.getTiles();
+    }
 
     /**
      * Gets a tile by coordinates
@@ -26,7 +33,8 @@ public class Board implements Serializable {
      * @param coords The coordinates
      * @return The Tile in that coordinates
      */
-    public GameTile getTile(Coordinates coords) {
-        return new GameTile(tiles[coords.getX()][coords.getY()]);
+    public Tile getTile(Coordinates coords) {
+        return tiles[coords.getX()][coords.getY()].getClone();
     }
+
 }
