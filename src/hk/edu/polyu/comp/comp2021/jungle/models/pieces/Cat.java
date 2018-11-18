@@ -23,4 +23,9 @@ public class Cat extends BasicPiece {
     public int getRank() {
         return 2;
     }
+
+    @Override
+    public String getSymbol() {
+        return "貓";
+    }
 }

@@ -23,4 +23,9 @@ public class Leopard extends BasicPiece {
     public int getRank() {
         return 5;
     }
+
+    @Override
+    public String getSymbol() {
+        return "豹";
+    }
 }

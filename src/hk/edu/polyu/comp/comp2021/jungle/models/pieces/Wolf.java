@@ -23,4 +23,9 @@ public class Wolf extends BasicPiece {
     public int getRank() {
         return 4;
     }
+
+    @Override
+    public String getSymbol() {
+        return "狼";
+    }
 }

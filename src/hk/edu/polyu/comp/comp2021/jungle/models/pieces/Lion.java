@@ -23,4 +23,9 @@ public class Lion extends RiverJumperPiece {
     public int getRank() {
         return 7;
     }
+
+    @Override
+    public String getSymbol() {
+        return "獅";
+    }
 }
