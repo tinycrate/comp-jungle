@@ -2,10 +2,12 @@ package hk.edu.polyu.comp.comp2021.jungle.models;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.GameTile;
 
+import java.io.Serializable;
+
 /**
  * This class holds the states of the game board
  */
-public class Board {
+public class Board implements Serializable {
     /**
      * The width of the board
      */

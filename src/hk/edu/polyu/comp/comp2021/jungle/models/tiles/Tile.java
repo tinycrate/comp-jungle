@@ -3,10 +3,12 @@ package hk.edu.polyu.comp.comp2021.jungle.models.tiles;
 import hk.edu.polyu.comp.comp2021.jungle.models.Player;
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 
+import java.io.Serializable;
+
 /**
  * This interface defines the required methods of a tile on a board
  */
-public interface Tile {
+public interface Tile extends Serializable {
     /**
      * Returns the tile type
      *

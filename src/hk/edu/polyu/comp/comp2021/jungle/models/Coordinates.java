@@ -1,9 +1,11 @@
 package hk.edu.polyu.comp.comp2021.jungle.models;
 
+import java.io.Serializable;
+
 /**
  * A simple immutable class for keeping board coordinates
  */
-public class Coordinates {
+public class Coordinates implements Serializable {
 
     /**
      * Checks whether a string represents valid coordinates

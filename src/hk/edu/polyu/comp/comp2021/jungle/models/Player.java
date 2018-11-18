@@ -1,9 +1,11 @@
 package hk.edu.polyu.comp.comp2021.jungle.models;
 
+import java.io.Serializable;
+
 /**
  * This class holds the basic info of a player
  */
-public class Player {
+public class Player implements Serializable {
     private String name;
 
     /**
