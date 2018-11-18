@@ -4,10 +4,12 @@ import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.Player;
 
+import java.io.Serializable;
+
 /**
  * An immutable base class for the game pieces (animals)
  */
-public abstract class Piece {
+public abstract class Piece implements Serializable {
     private final Board board;
     private final Coordinates coordinates;
     private final Player owner;
