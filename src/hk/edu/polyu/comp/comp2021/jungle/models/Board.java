@@ -17,6 +17,8 @@ public class Board {
     public static final int BOARD_HEIGHT = 9;
 
     private final Tile[][] tiles;
+    private final Player playerOne;
+    private final Player playerTwo;
 
     /**
      * Initialize a board with a specific BoardConfiguration
@@ -25,6 +27,8 @@ public class Board {
      */
     public Board(BoardConfiguration configuration) {
         tiles = configuration.getTiles();
+        playerOne = configuration.getPlayerOne();
+        playerTwo = configuration.getPlayerTwo();
     }
 
     /**
@@ -37,4 +41,17 @@ public class Board {
         return tiles[coords.getX()][coords.getY()].getClone();
     }
 
+    /**
+     * @return The player object for player one
+     */
+    public Player getPlayerOne() {
+        return playerOne;
+    }
+
+    /**
+     * @return The player object for player two
+     */
+    public Player getPlayerTwo() {
+        return playerTwo;
+    }
 }

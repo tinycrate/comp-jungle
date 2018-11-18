@@ -3,7 +3,7 @@ package hk.edu.polyu.comp.comp2021.jungle.models;
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.*;
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.*;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.Arrays;
 
 /**
@@ -23,6 +23,57 @@ public final class BoardConfiguration implements Serializable {
         configuration.setPlayerOne(playerOne);
         configuration.setPlayerTwo(playerTwo);
         return configuration;
+    }
+
+    /**
+     * Saves the current board configurations to disk
+     *
+     * @param board The current board
+     * @param path  Path to be saved at
+     * @return True if the operation is successful
+     */
+    public static boolean save(Board board, String path) {
+        try {
+            FileOutputStream out = new FileOutputStream(path);
+            ObjectOutputStream objOut = new ObjectOutputStream(out);
+            Tile[][] tiles = new Tile[Board.BOARD_WIDTH][Board.BOARD_HEIGHT];
+            for (int i = 0; i < Board.BOARD_WIDTH; i++) {
+                for (int j = 0; j < Board.BOARD_HEIGHT; j++) {
+                    tiles[i][j] = board.getTile(new Coordinates(i, j));
+                }
+            }
+            BoardConfiguration configuration = new BoardConfiguration();
+            configuration.setPlayerOne(board.getPlayerOne());
+            configuration.setPlayerTwo(board.getPlayerTwo());
+            configuration.setTiles(tiles);
+            objOut.writeObject(configuration);
+            objOut.close();
+            out.close();
+            return true;
+        } catch (NotSerializableException e) {
+            throw new RuntimeException("This class is not serializable, please fix your code!");
+        } catch (IOException | SecurityException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Loads an exisitng board configuration from disk
+     *
+     * @param path The path to the file
+     * @return The obtained BoardConfiguration, if the operation is not successful, return null
+     */
+    public static BoardConfiguration load(String path) {
+        try {
+            FileInputStream in = new FileInputStream(path);
+            ObjectInputStream objIn = new ObjectInputStream(in);
+            BoardConfiguration configuration = (BoardConfiguration) objIn.readObject();
+            objIn.close();
+            in.close();
+            return configuration;
+        } catch (IOException | SecurityException | ClassNotFoundException e) {
+            return null;
+        }
     }
 
     private static Tile[][] generateDefaultTiles(Player playerOne, Player playerTwo) {
