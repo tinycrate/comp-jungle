@@ -79,6 +79,6 @@ public class CoordinatesTest {
     public void string2xy() {
         Coordinates c = new Coordinates("C5");
         assertEquals(2, c.getX());
-        assertEquals(3, c.getY());
+        assertEquals(4, c.getY());
     }
 }
