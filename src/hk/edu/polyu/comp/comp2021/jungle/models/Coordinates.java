@@ -68,4 +68,16 @@ public class Coordinates implements Serializable {
     public int getY() {
         return y;
     }
+
+    @Override
+    public int hashCode() {
+        return 31 * x + y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Coordinates)) return false;
+        Coordinates other = (Coordinates) o;
+        return x == other.getX() && y == other.getY();
+    }
 }

@@ -22,6 +22,7 @@ public final class BoardConfiguration implements Serializable {
         configuration.setTiles(generateDefaultTiles(playerOne, playerTwo));
         configuration.setPlayerOne(playerOne);
         configuration.setPlayerTwo(playerTwo);
+        configuration.setCurrentPlayer(playerOne);
         return configuration;
     }
 
@@ -46,6 +47,7 @@ public final class BoardConfiguration implements Serializable {
             configuration.setPlayerOne(board.getPlayerOne());
             configuration.setPlayerTwo(board.getPlayerTwo());
             configuration.setTiles(tiles);
+            configuration.setCurrentPlayer(board.getCurrentPlayer());
             objOut.writeObject(configuration);
             objOut.close();
             out.close();
@@ -123,6 +125,7 @@ public final class BoardConfiguration implements Serializable {
 
     private Tile[][] tiles;
     private Player playerOne, playerTwo;
+    private Player currentPlayer;
 
     private BoardConfiguration() {
     }
@@ -160,4 +163,14 @@ public final class BoardConfiguration implements Serializable {
         this.playerTwo = playerTwo;
     }
 
+    /**
+     * @return The current player in turn
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    private void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 }
