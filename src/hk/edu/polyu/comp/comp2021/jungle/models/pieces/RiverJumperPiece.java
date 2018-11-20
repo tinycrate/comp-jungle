@@ -32,12 +32,6 @@ public abstract class RiverJumperPiece extends Piece {
         if(moveDis < 1) return false;
 
         if(moveDis > 1) {
-            // TODO: 1) Check if the animal is currently near the river and if the destination is right at the other end of the river, if not return false
-            // TODO: 2) Check if there's a rat intervening, if yes return false
-            // TODO: 3) Remove the NotImplementedException and the todo comments when finished
-            // throw new NotImplementedException();
-
-
             // Allow horizontal jump over river
             if(coords.getX() == getCoordinates().getX()
                     && (coords.getX() == 3 || coords.getX() == 4 || coords.getX() == 5)
