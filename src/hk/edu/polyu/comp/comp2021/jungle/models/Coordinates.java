@@ -14,6 +14,7 @@ public class Coordinates implements Serializable {
      * @return True if the coordinates are valid
      */
     public static boolean isValid(String coords) {
+        coords = coords.toUpperCase();
         if (coords.length() != 2) return false;
         if (coords.charAt(0) < 'A' || coords.charAt(0) > 'G') return false;
         return coords.charAt(1) >= '1' && coords.charAt(1) <= '9';
@@ -45,7 +46,7 @@ public class Coordinates implements Serializable {
         coords = coords.toUpperCase();
         if (isValid(coords)) {
             this.x = coords.charAt(0) - 'A';
-            this.y = 8 - coords.charAt(1) - '1';
+            this.y = 8 - (coords.charAt(1) - '1');
         } else {
             throw new IllegalArgumentException("Invalid string coordinates specified");
         }
