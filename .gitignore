@@ -7,7 +7,6 @@
 # Keep necessary xml configuration
 !/.idea/gradle.xml
 !/.idea/misc.xml
-!/.idea/workspace.xml
 !/.idea/inspectionProfiles/
 
 # Ignore build path
