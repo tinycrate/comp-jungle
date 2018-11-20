@@ -29,20 +29,21 @@ public class ConsoleUIView implements UIView {
 
     @Override
     public Command getCommand() {
-        System.out.print("> ");
-        Scanner scanner = new Scanner(System.in);
-        String commandStr = scanner.nextLine();
-        CommandType type = Command.getCommandType(commandStr);
-        if (type != null) {
-            Command command = Command.getCommand(commandStr);
-            if (command != null) return command;
-            System.out.format("Invalid command. Usage: \"%s\" [Enter]", type.getCommandUsage());
-        } else {
-            System.out.print("Unknown command. [Enter]");
+        while (true) {
+            System.out.print("> ");
+            Scanner scanner = new Scanner(System.in);
+            String commandStr = scanner.nextLine();
+            CommandType type = Command.getCommandType(commandStr);
+            if (type != null) {
+                Command command = Command.getCommand(commandStr);
+                if (command != null) return command;
+                System.out.format("Invalid command. Usage: \"%s\" [Enter]", type.getCommandUsage());
+                scanner.nextLine();
+            } else {
+                System.out.print("Unknown command. [Enter]");
+                scanner.nextLine();
+            }
         }
-        scanner.nextLine();
-        updateScreen();
-        return null;
     }
 
     @Override
