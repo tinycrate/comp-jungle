@@ -2,8 +2,13 @@
 /.gradle
 
 # Ignore local workspace propertices
-/.idea/workspace.xml
-/.idea/uiDesigner.xml
+/.idea
+
+# Keep necessary xml configuration
+!/.idea/gradle.xml
+!/.idea/misc.xml
+!/.idea/workspace.xml
+!/.idea/inspectionProfiles/
 
 # Ignore build path
 /build
