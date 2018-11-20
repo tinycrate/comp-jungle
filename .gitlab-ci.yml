@@ -32,8 +32,6 @@ coverage and javadoc:
     paths:
       - build/jacoco/html/
       - build/docs/javadoc/
-  only:
-    - master
 
 pages:
   stage: deploy
