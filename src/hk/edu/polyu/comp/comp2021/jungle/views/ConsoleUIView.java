@@ -11,14 +11,59 @@ import java.util.Scanner;
  * Standard Java Runtime Library doesn't have a reliable cross-platform console support for features like moving cursors, therefore fancy stuff
  * like double buffering is difficult and time consuming to implement without 3rd party library. We'll have to go with what we have right now.
  */
-public class ConsoleUIView {
+public class ConsoleUIView implements UIView {
 
-    /**
-     * Prints the boards on the console
-     *
-     * @param board The board to be printed
-     */
-    public static void printBoard(Board board) {
+    private Board board;
+
+    @Override
+    public void init() {
+        clearScreen();
+        printWelcomeMessage();
+    }
+
+    @Override
+    public void updateBoard(Board board) {
+        this.board = board;
+        updateScreen();
+    }
+
+    @Override
+    public Command getCommand() {
+        System.out.print("> ");
+        Scanner scanner = new Scanner(System.in);
+        String commandStr = scanner.nextLine();
+        CommandType type = Command.getCommandType(commandStr);
+        if (type != null) {
+            Command command = Command.getCommand(commandStr);
+            if (command != null) return command;
+            System.out.format("Invalid command. Usage: \"%s\" [Enter]", type.getCommandUsage());
+        } else {
+            System.out.print("Unknown command. [Enter]");
+        }
+        scanner.nextLine();
+        updateScreen();
+        return null;
+    }
+
+    @Override
+    public String promptUser(String message) {
+        System.out.format("%s: ", message);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    @Override
+    public void notifyUser(String message) {
+        System.out.println(message);
+    }
+
+    private void updateScreen() {
+        clearScreen();
+        printBoard();
+    }
+
+    private void printBoard() {
+        if (board == null) return;
         for (int y = 0; y < Board.BOARD_HEIGHT; y++) {
             System.out.println("**********************");
             for (int x = 0; x < Board.BOARD_WIDTH; x++) {
@@ -32,30 +77,12 @@ public class ConsoleUIView {
         System.out.println("**********************");
     }
 
-    /**
-     * Prints a list of string as a command history
-     *
-     * @param commands A list of commands
-     */
-    public static void printCommandHistory(String[] commands) {
-
+    private void printWelcomeMessage() {
+        // TODO: Beautify it
+        System.out.println("Welcome!!");
     }
 
-    /**
-     * Gets a command from user
-     *
-     * @return A string of input for further parsing
-     */
-    public static String getCommand() {
-        System.out.print("> ");
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-    /**
-     * Clears the console by printing newlines
-     */
-    public static void clearScreen() {
+    private void clearScreen() {
         String newline = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
         newline += newline;
         System.out.println(newline);
