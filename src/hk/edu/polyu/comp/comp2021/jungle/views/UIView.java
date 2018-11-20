@@ -7,7 +7,7 @@ import hk.edu.polyu.comp.comp2021.jungle.models.Board;
  */
 public interface UIView {
     /**
-     * Initilize the View
+     * Initialize the View
      */
     void init();
 
