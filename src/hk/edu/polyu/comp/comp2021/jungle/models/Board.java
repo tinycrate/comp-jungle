@@ -1,6 +1,11 @@
 package hk.edu.polyu.comp.comp2021.jungle.models;
 
+import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class holds the states of the game board
@@ -20,6 +25,10 @@ public class Board {
     private final Player playerOne;
     private final Player playerTwo;
 
+    private Player currentPlayer;
+
+    private final HashMap<Coordinates, List<Coordinates>> availableMoves = new HashMap<>();
+
     /**
      * Initialize a board with a specific BoardConfiguration
      *
@@ -29,6 +38,27 @@ public class Board {
         tiles = configuration.getTiles();
         playerOne = configuration.getPlayerOne();
         playerTwo = configuration.getPlayerTwo();
+        currentPlayer = configuration.getCurrentPlayer();
+        initializeBoard();
+    }
+
+    /**
+     * Moves a piece
+     *
+     * @param from The source
+     * @param to   The destination
+     * @return True if operation is successful
+     */
+    public boolean movePiece(Coordinates from, Coordinates to) {
+        if (!availableMoves.get(from).contains(to)) return false;
+        Tile source = getTile(from);
+        Tile destination = getTile(to);
+        Piece piece = source.getOccupiedPiece();
+        source.setOccupiedPiece(null);
+        destination.setOccupiedPiece(piece);
+        currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
+        updateMoves();
+        return true;
     }
 
     /**
@@ -54,4 +84,42 @@ public class Board {
     public Player getPlayerTwo() {
         return playerTwo;
     }
+
+    /**
+     * @return The current Player in turn
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    private void initializeBoard() {
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+            for (int y = 0; y < BOARD_HEIGHT; y++) {
+                availableMoves.put(new Coordinates(x, y), new ArrayList<>());
+            }
+        }
+        updateMoves();
+    }
+
+    private void updateMoves() {
+        boolean noMoves = true;
+        for (Coordinates from : availableMoves.keySet()) {
+            List<Coordinates> moves = availableMoves.get(from);
+            moves.clear();
+            Tile source = getTile(from);
+            if (!source.isOccupied() || source.getOwner() != currentPlayer) continue;
+            Piece piece = source.getOccupiedPiece();
+            for (Coordinates to : availableMoves.keySet()) {
+                if (piece.isMoveableTo(to, this)) {
+                    moves.add(to);
+                    noMoves = false;
+                }
+            }
+        }
+        if (noMoves) {
+            currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
+            updateMoves();
+        }
+    }
+
 }
