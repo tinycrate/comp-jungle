@@ -26,14 +26,14 @@ public abstract class RiverJumperPiece extends Piece {
     public boolean isMoveableTo(Coordinates coords, Board board) {
 
         int moveDis = Math.abs(coords.getX() - getCoordinates().getX())
-                    + Math.abs(coords.getY() - getCoordinates().getY());
+                + Math.abs(coords.getY() - getCoordinates().getY());
 
         // The animals are only allowed to move 1 tile in either direction, unless they are placed near the river
-        if(moveDis < 1) return false;
+        if (moveDis < 1) return false;
 
-        if(moveDis > 1) {
+        if (moveDis > 1) {
             // Allow horizontal jump over river
-            if(coords.getX() == getCoordinates().getX()
+            if (coords.getX() == getCoordinates().getX()
                     && (coords.getX() == 3 || coords.getX() == 4 || coords.getX() == 5)
                     && Math.abs(coords.getY() - getCoordinates().getY()) == 3) {
 
@@ -41,13 +41,10 @@ public abstract class RiverJumperPiece extends Piece {
                 int min = Math.min(getCoordinates().getY(), coords.getY());
                 Coordinates riverL = new Coordinates(coords.getX(), min + 1);
                 Coordinates riverR = new Coordinates(coords.getX(), min + 2);
-                if(board.getTile(riverL).isOccupied() || board.getTile(riverR).isOccupied()) {
-                    return false;
-                }
-                return true;
+                return !board.getTile(riverL).isOccupied() && !board.getTile(riverR).isOccupied();
 
-            // Allow vertical jump over river
-            } else if(coords.getY() == getCoordinates().getY()
+                // Allow vertical jump over river
+            } else if (coords.getY() == getCoordinates().getY()
                     && (coords.getY() == 1 || coords.getY() == 2 || coords.getY() == 4 || coords.getY() == 5)
                     && Math.abs(coords.getX() - getCoordinates().getX()) == 4) {
 
@@ -56,10 +53,7 @@ public abstract class RiverJumperPiece extends Piece {
                 Coordinates riverL = new Coordinates(coords.getY(), min + 1);
                 Coordinates riverM = new Coordinates(coords.getY(), min + 2);
                 Coordinates riverR = new Coordinates(coords.getY(), min + 3);
-                if(board.getTile(riverL).isOccupied() || board.getTile(riverM).isOccupied() || board.getTile(riverR).isOccupied()) {
-                    return false;
-                }
-                return true;
+                return !board.getTile(riverL).isOccupied() && !board.getTile(riverM).isOccupied() && !board.getTile(riverR).isOccupied();
             }
             return false;
         }
