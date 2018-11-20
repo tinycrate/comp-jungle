@@ -79,7 +79,7 @@ public class ConsoleUIView implements UIView {
 
     private void printWelcomeMessage() {
         // TODO: Beautify it
-        System.out.format("Welcome!! \nUse %s to start a new game \n Or %s to load a saved game.%n", CommandType.NEW.getCommandUsage(), CommandType.OPEN.getCommandUsage());
+        System.out.format("Welcome!! \nUse %s to start a new game \nOr %s to load a saved game.%n", CommandType.NEW.getCommandUsage(), CommandType.OPEN.getCommandUsage());
     }
 
     private void clearScreen() {
