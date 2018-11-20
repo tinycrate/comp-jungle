@@ -28,7 +28,12 @@ public enum CommandType {
      * Moves a tile
      * Usage: MOVE `From` `To`
      */
-    MOVE(2, "from[A1..G9]", "to[A1..G9]");
+    MOVE(2, "from[A1..G9]", "to[A1..G9]"),
+
+    /**
+     * Exits the game
+     */
+    EXIT(0);
 
     private final int argsCount;
     private final String[] args;
