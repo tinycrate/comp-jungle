@@ -51,8 +51,8 @@ public class Board {
      */
     public boolean movePiece(Coordinates from, Coordinates to) {
         if (!availableMoves.get(from).contains(to)) return false;
-        Tile source = getTile(from);
-        Tile destination = getTile(to);
+        Tile source = tiles[from.getX()][from.getY()];
+        Tile destination = tiles[to.getX()][to.getY()];
         Piece piece = source.getOccupiedPiece();
         source.setOccupiedPiece(null);
         destination.setOccupiedPiece(piece);
