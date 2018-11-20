@@ -16,19 +16,19 @@ public enum CommandType {
      * Loads a game from disk
      * Usage: LOAD `Filename`
      */
-    OPEN(1, "Filename"),
+    OPEN(1, "filename"),
 
     /**
      * Saves a game to disk
      * Usage: SAVE `Filename`
      */
-    SAVE(1, "Filename"),
+    SAVE(1, "filename"),
 
     /**
      * Moves a tile
      * Usage: MOVE `From` `To`
      */
-    MOVE(2, "From[A1..G9]", "To[A1..G9]");
+    MOVE(2, "from[A1..G9]", "to[A1..G9]");
 
     private final int argsCount;
     private final String[] args;
