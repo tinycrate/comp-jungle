@@ -16,7 +16,7 @@ public class PlayerTest {
     public void createPlayer() {
         Player player = new Player("Name");
 
-        assertEquals(player.getName(), "Name");
+        assertEquals("Name", player.getName());
     }
 
 
@@ -28,6 +28,6 @@ public class PlayerTest {
         Player player = new Player("Name");
         player.setName("NewName");
 
-        assertEquals(player.getName(), "NewName");
+        assertEquals("NewName", player.getName());
     }
 }
