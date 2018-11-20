@@ -21,25 +21,28 @@ unit test:
   artifacts:
     reports:
       junit: build/test-results/test/TEST-*.xml
-      
-coverage:
+
+coverage and javadoc:
   stage: test
   script:
-    - ./gradlew --console=plain test jacocoTestReport
+    - ./gradlew --console=plain test jacocoTestReport javadoc
     - cat build/jacoco/html/index.html
   coverage: '/Total.*?([0-9]{1,3})%/'
   artifacts:
     paths:
       - build/jacoco/html/
+      - build/docs/javadoc/
   only:
     - master
 
 pages:
   stage: deploy
-  dependencies: 
-    - coverage
+  dependencies:
+    - coverage and javadoc
   script:
-    - mv build/jacoco/html/ public/
+    - mkdir public
+    - mv build/jacoco/html/ public/coverage
+    - mv build/docs/javadoc/ public/javadoc
   artifacts:
     paths:
       - public
