@@ -37,11 +37,9 @@ public class ConsoleUIView implements UIView {
             if (type != null) {
                 Command command = Command.getCommand(commandStr);
                 if (command != null) return command;
-                System.out.format("Invalid command. Usage: \"%s\" [Enter]", type.getCommandUsage());
-                scanner.nextLine();
+                System.out.format("Invalid command. Usage: \"%s\"%n", type.getCommandUsage());
             } else {
-                System.out.print("Unknown command. [Enter]");
-                scanner.nextLine();
+                System.out.println("Unknown command.");
             }
         }
     }
