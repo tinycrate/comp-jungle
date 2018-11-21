@@ -38,7 +38,7 @@ public class CoordinatesTest {
     }
 
     /**
-     *
+     * Test the success Integer Coordinates.
      */
     @Test
     public void testSuccessIntegerCoordinates() {
@@ -47,7 +47,7 @@ public class CoordinatesTest {
     }
 
     /**
-     *
+     * Test if the coordinates failed on lower X boundary
      */
     @Test(expected = IllegalArgumentException.class)
     public void testFailedXLowCoordinates() {
@@ -55,7 +55,7 @@ public class CoordinatesTest {
     }
 
     /**
-     *
+     * Test if the coordinates failed on upper X boundary
      */
     @Test(expected = IllegalArgumentException.class)
     public void testFailedXHighCoordinates() {
@@ -63,7 +63,7 @@ public class CoordinatesTest {
     }
 
     /**
-     *
+     * Test if the coordinates failed on lower Y boundary
      */
     @Test(expected = IllegalArgumentException.class)
     public void testFailedYLowCoordinates() {
@@ -71,7 +71,7 @@ public class CoordinatesTest {
     }
 
     /**
-     *
+     * Test if the coordinates failed on higher Y boundary
      */
     @Test(expected = IllegalArgumentException.class)
     public void testFailedYHighCoordinates() {
@@ -79,7 +79,7 @@ public class CoordinatesTest {
     }
 
     /**
-     *
+     * Test if the coordinates failed on String input
      */
     @Test(expected = IllegalArgumentException.class)
     public void testFailedStringCoordinates() {
@@ -98,7 +98,7 @@ public class CoordinatesTest {
     }
 
     /**
-     *
+     * Test the hash code
      */
     @Test
     public void testHashCode() {
@@ -107,7 +107,7 @@ public class CoordinatesTest {
     }
 
     /**
-     *
+     * Test whether equals() works
      */
     @Test
     public void testEquals() {
