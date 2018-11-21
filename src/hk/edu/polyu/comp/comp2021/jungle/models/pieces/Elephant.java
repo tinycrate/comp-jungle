@@ -38,16 +38,18 @@ public class Elephant extends Piece {
         // Going into river is not allowed
         if (tile.getTileType() == TileType.RIVER) return false;
 
-        // Runnning into friendly pieces or its own den is not allowed
+        // Going into its own den is not allowed
+        if (tile.getTileType() == TileType.DEN && tile.getOwner() == getOwner()) return false;
+
+        // If the destination is not occupied, they can visit freely
+        if (!tile.isOccupied()) return true;
+
+        // Running into a friendly piece is not allowed
         if (tile.getOwner() == getOwner()) return false;
 
-        // Running into a rat is not allowed unless it's in a trap, otherwise anything can be eaten
-        if (tile.isOccupied()) {
-            Piece opponent = tile.getOccupiedPiece();
-            return opponent.isWeakenByTrap(board) || !(opponent instanceof Rat);
-        }
-
-        return true;
+        // Running into a rat unless it's in a trap, otherwise anything can be eaten
+        Piece opponent = tile.getOccupiedPiece();
+        return opponent.isWeakenByTrap(board) || !(opponent instanceof Rat);
     }
 
     @Override
