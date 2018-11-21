@@ -86,9 +86,9 @@ public final class BoardConfiguration implements Serializable {
             }
         }
         // Fill River
-        for (int y = 1; y <= 5; y++) {
-            if (y == 3) continue;
-            for (int x = 3; x <= 5; x++) {
+        for (int x = 1; x <= 5; x++) {
+            if (x == 3) continue;
+            for (int y = 3; y <= 5; y++) {
                 tiles[x][y] = new NeutralTile(TileType.RIVER);
             }
         }
