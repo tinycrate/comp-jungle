@@ -62,15 +62,17 @@ public abstract class RiverJumperPiece extends Piece {
         // Going into river is not allowed
         if (tile.getTileType() == TileType.RIVER) return false;
 
-        // Runnning into friendly pieces or its own den is not allowed
+        // Going into its own den is not allowed
+        if (tile.getTileType() == TileType.DEN && tile.getOwner() == getOwner()) return false;
+
+        // If the destination is not occupied, they can visit freely
+        if (!tile.isOccupied()) return true;
+
+        // Running into a friendly piece is not allowed
         if (tile.getOwner() == getOwner()) return false;
 
         // Running into an animal with higher rank is not allowed unless it's in a trap
-        if (tile.isOccupied()) {
-            Piece opponent = tile.getOccupiedPiece();
-            return opponent.isWeakenByTrap(board) || opponent.getRank() <= getRank();
-        }
-
-        return true;
+        Piece opponent = tile.getOccupiedPiece();
+        return opponent.isWeakenByTrap(board) || opponent.getRank() <= getRank();
     }
 }
