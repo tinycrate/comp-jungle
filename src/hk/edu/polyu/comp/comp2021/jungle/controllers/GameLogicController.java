@@ -127,6 +127,8 @@ public class GameLogicController {
         Coordinates to = new Coordinates(command.getArgs()[1]);
         if (!board.movePiece(from, to)) {
             view.promptUser("Your move is invalid! Try again? [Enter]");
+        } else {
+            dirty = true;
         }
         view.updateBoard(board);
     }
@@ -142,7 +144,7 @@ public class GameLogicController {
 
     private boolean promptQuestion(String message) {
         while (true) {
-            String response = view.promptUser(String.format("%s [y/n]: ", message)).toUpperCase().trim();
+            String response = view.promptUser(String.format("%s [y/n]", message)).toUpperCase().trim();
             if (response.length() != 1) continue;
             if (response.charAt(0) == 'Y') return true;
             if (response.charAt(0) == 'N') return false;
