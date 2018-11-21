@@ -28,8 +28,9 @@ public class TrapTileTest {
         TrapTile catTrap=new TrapTile(TestTile);
         assertSame(cat,catTrap.getOccupiedPiece());
         TrapTile newTrap= (TrapTile) TestTile.getClone();
-        assertSame(TestTile,newTrap);
-        assertSame(TestTile,testType);
+        assertSame(newTrap.getTileType(),TestTile.getTileType());
+        assertSame(newTrap.getOwner(),TestTile.getOwner());
+        assertSame(TestTile.getTileType(),testType);
 
     }
 }

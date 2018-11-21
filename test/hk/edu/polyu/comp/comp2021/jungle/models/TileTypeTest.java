@@ -14,7 +14,7 @@ public class TileTypeTest {
     @Test
     public void testDen() {
         TileType test = TileType.DEN;
-        assertEquals("DEN",test.getName());
+        assertTrue("Den".equals(test.getName()));
         assertEquals("穴",test.getPlaceHolder());
         assertFalse(test.isNeutralTile());
 
