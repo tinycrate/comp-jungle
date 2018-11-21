@@ -36,11 +36,14 @@ public class Rat extends Piece {
         Tile source = board.getTile(board.getCoordinates(this));
         Tile destination = board.getTile(coords);
 
-        // Runnning into friendly pieces or its own den is not allowed
-        if (destination.getOwner() == getOwner()) return false;
+        // Going into its own den is not allowed
+        if (destination.getTileType() == TileType.DEN && destination.getOwner() == getOwner()) return false;
 
         // If the destination is not occupied, the rat can visit freely
         if (!destination.isOccupied()) return true;
+
+        // Runnning into friendly pieces is not allowed
+        if (destination.getOwner() == getOwner()) return false;
 
         // Going from land to river but someone's in the way is not allowed
         if (source.getTileType() == TileType.GRASS && destination.getTileType() == TileType.RIVER) {
