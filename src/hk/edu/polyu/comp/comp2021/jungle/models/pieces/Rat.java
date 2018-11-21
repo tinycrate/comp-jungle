@@ -15,11 +15,10 @@ public class Rat extends Piece {
      * Creates a Piece object with reference to the board and its coordinates
      * Most likely called by board
      *
-     * @param coordinates The coordinares of the piece on the board
-     * @param owner       The owner of the piece
+     * @param owner The owner of the piece
      */
-    public Rat(Coordinates coordinates, Player owner) {
-        super(coordinates, owner);
+    public Rat(Player owner) {
+        super(owner);
     }
 
     @Override
@@ -30,11 +29,11 @@ public class Rat extends Piece {
     @Override
     public boolean isMoveableTo(Coordinates coords, Board board) {
         // The animals are only allowed to move 1 tile in either direction
-        if (Math.abs(coords.getX() - getCoordinates().getX()) + Math.abs(coords.getY() - getCoordinates().getY()) != 1) {
+        if (Math.abs(coords.getX() - board.getCoordinates(this).getX()) + Math.abs(coords.getY() - board.getCoordinates(this).getY()) != 1) {
             return false;
         }
 
-        Tile source = board.getTile(getCoordinates());
+        Tile source = board.getTile(board.getCoordinates(this));
         Tile destination = board.getTile(coords);
 
         // Runnning into friendly pieces or its own den is not allowed
