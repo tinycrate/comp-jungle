@@ -12,6 +12,11 @@ import static org.junit.Assert.*;
 public class CoordinatesTest {
 
     /**
+     * Specific hash code for tile C5
+     */
+    private static final int HASH_CODE_C5 = 66;
+
+    /**
      * Test case for valid coordinates
      */
     @Test
@@ -25,10 +30,20 @@ public class CoordinatesTest {
 
         // Test number out of range
         assertFalse(Coordinates.isValid("A0"));
+        assertFalse(Coordinates.isValid("GA"));
 
         // Test true case boundary
         assertTrue(Coordinates.isValid("A1"));
         assertTrue(Coordinates.isValid("G9"));
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testSuccessIntegerCoordinates() {
+        Coordinates c = new Coordinates(0, 0);
+        Coordinates d = new Coordinates(6, 8);
     }
 
     /**
@@ -73,12 +88,45 @@ public class CoordinatesTest {
 
 
     /**
-     * Test case for getX
+     * Test case for getX and get Y
      */
     @Test
     public void string2xy() {
         Coordinates c = new Coordinates("C5");
         assertEquals(2, c.getX());
         assertEquals(4, c.getY());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testHashCode() {
+        Coordinates c = new Coordinates("C5");
+        assertEquals(HASH_CODE_C5, c.hashCode());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testEquals() {
+        Coordinates c = new Coordinates("C5");
+        Coordinates d = new Coordinates(2, 4);
+
+        Coordinates x = new Coordinates("B2");
+        Coordinates y = new Coordinates("C4");
+        Coordinates z = new Coordinates("F5");
+        Object o = new Object();
+
+        assertTrue(c.equals(d));
+        assertTrue(d.equals(c));
+
+        assertFalse(c.equals(x));
+        assertFalse(c.equals(y));
+        assertFalse(c.equals(z));
+
+        assertFalse(c.equals(o));
+
     }
 }
