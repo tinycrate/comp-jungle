@@ -65,17 +65,26 @@ public class ConsoleUIView implements UIView {
 
     private void printBoard() {
         if (board == null) return;
+        String fullWidthNumbers = "９８７６５４３２１";
+        System.out.println("　    Ａ     Ｂ     Ｃ     Ｄ     Ｅ     Ｆ     Ｇ   ");
         for (int y = 0; y < Board.BOARD_HEIGHT; y++) {
-            System.out.println("**********************");
+            System.out.println("   +  －  +  －  +  －  +  －  +  －  +  －  +  －  +");
+            System.out.format("%c ", fullWidthNumbers.charAt(y));
             for (int x = 0; x < Board.BOARD_WIDTH; x++) {
-                System.out.print("*");
+                System.out.print("|");
                 Tile tile = board.getTile(new Coordinates(x, y));
-                String symbol = (tile.isOccupied()) ? tile.getOccupiedPiece().getSymbol() : "  ";
+                String symbol;
+                if (tile.isOccupied()) {
+                    symbol = tile.getOccupiedPiece().getSymbol();
+                    symbol = (tile.getOwner() == board.getCurrentPlayer()) ? String.format(" (%s) ", symbol) : String.format("  %s  ", symbol);
+                } else {
+                    symbol = String.format("  %s  ", tile.getTileType().getPlaceHolder());
+                }
                 System.out.print(symbol);
             }
-            System.out.println("*");
+            System.out.println("|");
         }
-        System.out.println("**********************");
+        System.out.println("   +  －  +  －  +  －  +  －  +  －  +  －  +  －  +");
     }
 
     private void printWelcomeMessage() {
