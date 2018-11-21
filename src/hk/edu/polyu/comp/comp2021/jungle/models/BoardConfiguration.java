@@ -4,7 +4,6 @@ import hk.edu.polyu.comp.comp2021.jungle.models.pieces.*;
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.*;
 
 import java.io.*;
-import java.util.Arrays;
 
 /**
  * This class provides methods for generating, saving and loading board configurations
@@ -108,16 +107,16 @@ public final class BoardConfiguration implements Serializable {
         int mirror = 1;
         for (Player player : new Player[]{playerOne, playerTwo}) {
             // Backline
-            tiles[3 - 3 * mirror][4 + 4 * mirror].setOccupiedPiece(new Tiger(new Coordinates(3 - 3 * mirror, 4 + 4 * mirror), player));
-            tiles[3 + 3 * mirror][4 + 4 * mirror].setOccupiedPiece(new Lion(new Coordinates(3 + 3 * mirror, 4 + 4 * mirror), player));
+            tiles[3 - 3 * mirror][4 + 4 * mirror].setOccupiedPiece(new Tiger(player));
+            tiles[3 + 3 * mirror][4 + 4 * mirror].setOccupiedPiece(new Lion(player));
             // Middle
-            tiles[3 - 2 * mirror][4 + 3 * mirror].setOccupiedPiece(new Cat(new Coordinates(3 - 2 * mirror, 4 + 3 * mirror), player));
-            tiles[3 + 2 * mirror][4 + 3 * mirror].setOccupiedPiece(new Dog(new Coordinates(3 + 2 * mirror, 4 + 3 * mirror), player));
+            tiles[3 - 2 * mirror][4 + 3 * mirror].setOccupiedPiece(new Cat(player));
+            tiles[3 + 2 * mirror][4 + 3 * mirror].setOccupiedPiece(new Dog(player));
             // Frontline
-            tiles[3 - 3 * mirror][4 + 2 * mirror].setOccupiedPiece(new Elephant(new Coordinates(3 - 3 * mirror, 4 + 2 * mirror), player));
-            tiles[3 - mirror][4 + 2 * mirror].setOccupiedPiece(new Wolf(new Coordinates(3 - mirror, 4 + 2 * mirror), player));
-            tiles[3 + mirror][4 + 2 * mirror].setOccupiedPiece(new Leopard(new Coordinates(3 + mirror, 4 + 2 * mirror), player));
-            tiles[3 + 3 * mirror][4 + 2 * mirror].setOccupiedPiece(new Rat(new Coordinates(3 + 3 * mirror, 4 + 2 * mirror), player));
+            tiles[3 - 3 * mirror][4 + 2 * mirror].setOccupiedPiece(new Elephant(player));
+            tiles[3 - mirror][4 + 2 * mirror].setOccupiedPiece(new Wolf(player));
+            tiles[3 + mirror][4 + 2 * mirror].setOccupiedPiece(new Leopard(player));
+            tiles[3 + 3 * mirror][4 + 2 * mirror].setOccupiedPiece(new Rat(player));
             mirror = -1;
         }
         return tiles;
