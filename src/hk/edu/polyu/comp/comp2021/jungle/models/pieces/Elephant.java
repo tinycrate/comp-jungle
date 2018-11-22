@@ -15,11 +15,10 @@ public class Elephant extends Piece {
      * Creates a Piece object with reference to the board and its coordinates
      * Most likely called by board
      *
-     * @param coordinates The coordinares of the piece on the board
-     * @param owner       The owner of the piece
+     * @param owner The owner of the piece
      */
-    public Elephant(Coordinates coordinates, Player owner) {
-        super(coordinates, owner);
+    public Elephant(Player owner) {
+        super(owner);
     }
 
     @Override
@@ -30,7 +29,7 @@ public class Elephant extends Piece {
     @Override
     public boolean isMoveableTo(Coordinates coords, Board board) {
         // The animals are only allowed to move 1 tile in either direction
-        if (Math.abs(coords.getX() - getCoordinates().getX()) + Math.abs(coords.getY() - getCoordinates().getY()) != 1) {
+        if (Math.abs(coords.getX() - board.getCoordinates(this).getX()) + Math.abs(coords.getY() - board.getCoordinates(this).getY()) != 1) {
             return false;
         }
 
@@ -39,16 +38,18 @@ public class Elephant extends Piece {
         // Going into river is not allowed
         if (tile.getTileType() == TileType.RIVER) return false;
 
-        // Runnning into friendly pieces or its own den is not allowed
+        // Going into its own den is not allowed
+        if (tile.getTileType() == TileType.DEN && tile.getOwner() == getOwner()) return false;
+
+        // If the destination is not occupied, they can visit freely
+        if (!tile.isOccupied()) return true;
+
+        // Running into a friendly piece is not allowed
         if (tile.getOwner() == getOwner()) return false;
 
-        // Running into a rat is not allowed unless it's in a trap, otherwise anything can be eaten
-        if (tile.isOccupied()) {
-            Piece opponent = tile.getOccupiedPiece();
-            return opponent.isWeakenByTrap(board) || !(opponent instanceof Rat);
-        }
-
-        return true;
+        // Running into a rat unless it's in a trap, otherwise anything can be eaten
+        Piece opponent = tile.getOccupiedPiece();
+        return opponent.isWeakenByTrap(board) || !(opponent instanceof Rat);
     }
 
     @Override

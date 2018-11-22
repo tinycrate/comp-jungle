@@ -37,18 +37,16 @@ public class ConsoleUIView implements UIView {
             if (type != null) {
                 Command command = Command.getCommand(commandStr);
                 if (command != null) return command;
-                System.out.format("Invalid command. Usage: \"%s\" [Enter]", type.getCommandUsage());
-                scanner.nextLine();
+                System.out.format("Invalid command. Usage: \"%s\"%n", type.getCommandUsage());
             } else {
-                System.out.print("Unknown command. [Enter]");
-                scanner.nextLine();
+                System.out.println("Unknown command.");
             }
         }
     }
 
     @Override
     public String promptUser(String message) {
-        System.out.format("%s: ", message);
+        System.out.print(message);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
@@ -76,7 +74,16 @@ public class ConsoleUIView implements UIView {
                 String symbol;
                 if (tile.isOccupied()) {
                     symbol = tile.getOccupiedPiece().getSymbol();
-                    symbol = (tile.getOwner() == board.getCurrentPlayer()) ? String.format(" (%s) ", symbol) : String.format("  %s  ", symbol);
+                    symbol = String.format((tile.getOwner() == board.getCurrentPlayer()) ? "(%s)" : "%s", symbol);
+                    switch (tile.getTileType()) {
+                        case RIVER:
+                            symbol = String.format("~%s~", symbol);
+                            break;
+                        case TRAP:
+                            if (tile.getOccupiedPiece().isWeakenByTrap(board)) symbol = String.format("{%s}", symbol);
+                            break;
+                    }
+                    while (symbol.length() < 5) symbol = String.format(" %s ", symbol);
                 } else {
                     symbol = String.format("  %s  ", tile.getTileType().getPlaceHolder());
                 }
@@ -89,7 +96,7 @@ public class ConsoleUIView implements UIView {
 
     private void printWelcomeMessage() {
         // TODO: Beautify it
-        System.out.format("Welcome!! \nUse %s to start a new game \nOr %s to load a saved game.%n", CommandType.NEW.getCommandUsage(), CommandType.OPEN.getCommandUsage());
+        System.out.format("Welcome!! \nType %s to start a new game \nOr %s to load a saved game.%n", CommandType.NEW.getCommandUsage(), CommandType.OPEN.getCommandUsage());
     }
 
     private void clearScreen() {

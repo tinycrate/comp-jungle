@@ -27,6 +27,8 @@ public class Board {
 
     private Player currentPlayer;
 
+    // Additional effort is made to track the coordinates of the piece instead of finding them each time
+    private final HashMap<Piece, Coordinates> coordinates = new HashMap<>();
     private final HashMap<Coordinates, List<Coordinates>> availableMoves = new HashMap<>();
 
     /**
@@ -51,11 +53,7 @@ public class Board {
      */
     public boolean movePiece(Coordinates from, Coordinates to) {
         if (!availableMoves.get(from).contains(to)) return false;
-        Tile source = tiles[from.getX()][from.getY()];
-        Tile destination = tiles[to.getX()][to.getY()];
-        Piece piece = source.getOccupiedPiece();
-        source.setOccupiedPiece(null);
-        destination.setOccupiedPiece(piece);
+        setOrReplacePiece(getTile(from).getOccupiedPiece(), to);
         currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
         updateMoves();
         return true;
@@ -92,9 +90,26 @@ public class Board {
         return currentPlayer;
     }
 
+    /**
+     * Gets the coordinates of a piece
+     *
+     * @param piece The piece in the board
+     * @return The coordinates, null if the piece is not in the board
+     */
+    public Coordinates getCoordinates(Piece piece) {
+        Coordinates coords = coordinates.get(piece);
+        if (coords != null && getTile(coords).getOccupiedPiece() != piece) {
+            throw new IllegalStateException("Coordinates out of sync.");
+        }
+        return coords;
+    }
+
     private void initializeBoard() {
         for (int x = 0; x < BOARD_WIDTH; x++) {
             for (int y = 0; y < BOARD_HEIGHT; y++) {
+                Coordinates coords = new Coordinates(x, y);
+                Tile tile = getTile(coords);
+                if (tile.isOccupied()) coordinates.put(tile.getOccupiedPiece(), coords);
                 availableMoves.put(new Coordinates(x, y), new ArrayList<>());
             }
         }
@@ -120,6 +135,25 @@ public class Board {
             currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
             updateMoves();
         }
+    }
+
+    private void removePiece(Piece piece) {
+        Coordinates coords = getCoordinates(piece);
+        Tile tile = tiles[coords.getX()][coords.getY()];
+        tile.setOccupiedPiece(null);
+        coordinates.replace(piece, null);
+    }
+
+    private void setOrReplacePiece(Piece piece, Coordinates coords) {
+        Coordinates originCoords = getCoordinates(piece);
+        Tile origin = tiles[originCoords.getX()][originCoords.getY()];
+        Tile destination = tiles[coords.getX()][coords.getY()];
+        if (destination.isOccupied()) {
+            removePiece(destination.getOccupiedPiece());
+        }
+        origin.setOccupiedPiece(null);
+        destination.setOccupiedPiece(piece);
+        coordinates.replace(piece, coords);
     }
 
 }
