@@ -69,7 +69,7 @@ public abstract class RiverJumperPiece extends Piece {
         if (!tile.isOccupied()) return true;
 
         // Running into a friendly piece is not allowed
-        if (tile.getOwner() == getOwner()) return false;
+        if (tile.getOccupiedPiece().getOwner() == getOwner()) return false;
 
         // Running into an animal with higher rank is not allowed unless it's in a trap
         Piece opponent = tile.getOccupiedPiece();
