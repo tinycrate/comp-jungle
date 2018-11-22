@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.jungle.models;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
+import hk.edu.polyu.comp.comp2021.jungle.models.pieces.PieceType;
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
 
 import java.util.ArrayList;
@@ -102,6 +103,20 @@ public class Board {
             throw new IllegalStateException("Coordinates out of sync.");
         }
         return coords;
+    }
+
+    /**
+     * Gets the coordinates of a piece with specific player
+     * @param player The player
+     * @param type   Type of piece
+     * @return The coordinates, null if the piece is not in the board
+     */
+    public Coordinates getCoordinates(Player player, PieceType type) {
+        for(Piece p: coordinates.keySet()) {
+            if(p.getPieceType() == type && p.getOwner() == player)
+                return coordinates.get(p);
+        }
+        return null;
     }
 
     private void initializeBoard() {

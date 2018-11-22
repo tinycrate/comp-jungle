@@ -13,21 +13,19 @@ import java.io.Serializable;
  */
 public abstract class Piece implements Serializable {
     private final Player owner;
+    private final PieceType type;
 
     /**
      * Creates a Piece object with reference to the board and its coordinates
      * Most likely called by board
      *
      * @param owner The owner of the piece
+     * @param type  The type of the piece
      */
-    Piece(Player owner) {
+    Piece(Player owner, PieceType type) {
         this.owner = owner;
+        this.type = type;
     }
-
-    /**
-     * @return The rank of the piece.
-     */
-    public abstract int getRank();
 
     /**
      * Checks if the piece is being weaken by an enemy trap
@@ -59,9 +57,25 @@ public abstract class Piece implements Serializable {
     }
 
     /**
+     * @return The type of piece
+     */
+    public final PieceType getPieceType() {
+        return type;
+    }
+
+    /**
+     * @return The rank of the piece.
+     */
+    public final int getRank() {
+        return type.getRank();
+    }
+
+    /**
      * Gets the sybmol representing the piece
      *
      * @return The symbol for the piece
      */
-    public abstract String getSymbol();
+    public final String getSymbol() {
+        return type.getSymbol();
+    }
 }

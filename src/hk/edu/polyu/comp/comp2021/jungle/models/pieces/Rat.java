@@ -18,12 +18,7 @@ public class Rat extends Piece {
      * @param owner The owner of the piece
      */
     public Rat(Player owner) {
-        super(owner);
-    }
-
-    @Override
-    public int getRank() {
-        return 1;
+        super(owner, PieceType.RAT);
     }
 
     @Override
@@ -62,10 +57,5 @@ public class Rat extends Piece {
         }
 
         return true;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "鼠";
     }
 }
