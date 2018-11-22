@@ -12,18 +12,15 @@ import java.io.Serializable;
  * An immutable base class for the game pieces (animals)
  */
 public abstract class Piece implements Serializable {
-    private final Coordinates coordinates;
     private final Player owner;
 
     /**
      * Creates a Piece object with reference to the board and its coordinates
      * Most likely called by board
      *
-     * @param coordinates The coordinares of the piece on the board
-     * @param owner       The owner of the piece
+     * @param owner The owner of the piece
      */
-    Piece(Coordinates coordinates, Player owner) {
-        this.coordinates = coordinates;
+    Piece(Player owner) {
         this.owner = owner;
     }
 
@@ -39,7 +36,7 @@ public abstract class Piece implements Serializable {
      * @return True if the piece is being weaken
      */
     public boolean isWeakenByTrap(Board board) {
-        Tile tile = board.getTile(coordinates);
+        Tile tile = board.getTile(board.getCoordinates(this));
         return tile.getTileType() == TileType.TRAP && tile.getOwner() != owner;
     }
 
@@ -59,13 +56,6 @@ public abstract class Piece implements Serializable {
      */
     public Player getOwner() {
         return owner;
-    }
-
-    /**
-     * @return The coordinates of the piece
-     */
-    public Coordinates getCoordinates() {
-        return coordinates;
     }
 
     /**
