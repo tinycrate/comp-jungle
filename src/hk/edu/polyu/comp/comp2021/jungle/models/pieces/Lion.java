@@ -14,16 +14,6 @@ public class Lion extends RiverJumperPiece {
      * @param owner The owner of the piece
      */
     public Lion(Player owner) {
-        super(owner);
-    }
-
-    @Override
-    public int getRank() {
-        return 7;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "獅";
+        super(owner, PieceType.LION);
     }
 }

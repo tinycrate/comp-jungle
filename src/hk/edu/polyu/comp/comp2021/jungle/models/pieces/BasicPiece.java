@@ -17,8 +17,8 @@ public abstract class BasicPiece extends Piece {
      *
      * @param owner The owner of the piece
      */
-    BasicPiece(Player owner) {
-        super(owner);
+    BasicPiece(Player owner, PieceType type) {
+        super(owner, type);
     }
 
     @Override

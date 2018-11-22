@@ -14,16 +14,6 @@ public class Wolf extends BasicPiece {
      * @param owner The owner of the piece
      */
     public Wolf(Player owner) {
-        super(owner);
-    }
-
-    @Override
-    public int getRank() {
-        return 4;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "狼";
+        super(owner, PieceType.WOLF);
     }
 }
