@@ -93,7 +93,10 @@ public class ConsoleUIView implements UIView {
             }
             System.out.println("|");
         }
-        System.out.println("   +  －  +  －  +  －  +  －  +  －  +  －  +  －  +");
+        System.out.println("   +  －  +  －  +  －  +  －  +  －  +  －  +  －  +\n");
+        System.out.println(String.format((board.getCurrentPlayer() == board.getPlayerOne())
+                ? "Current Player: [%s] %s"
+                : "Current Player: %s [%s]", board.getPlayerOne(), board.getPlayerTwo()));
     }
 
     private void printWelcomeMessage() {
