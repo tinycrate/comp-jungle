@@ -14,6 +14,7 @@ public class DenTile extends Tile {
 
     private final Player owner;
     private transient List<DenEventListener> listeners;
+    private Piece occupiedPiece = null;
 
     /**
      * Creates a DenTile
@@ -31,6 +32,8 @@ public class DenTile extends Tile {
      */
     public DenTile(DenTile tile) {
         this.owner = tile.getOwner();
+        this.listeners = tile.getListeners();
+        this.occupiedPiece = tile.getOccupiedPiece();
     }
 
     /**
@@ -60,6 +63,7 @@ public class DenTile extends Tile {
 
     @Override
     public void setOccupiedPiece(Piece occupiedPiece) {
+        this.occupiedPiece = occupiedPiece;
         TriggerEvents(occupiedPiece.getOwner());
     }
 
@@ -70,7 +74,7 @@ public class DenTile extends Tile {
 
     @Override
     public Piece getOccupiedPiece() {
-        return null;
+        return occupiedPiece;
     }
 
     @Override
