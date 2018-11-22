@@ -40,7 +40,7 @@ public abstract class BasicPiece extends Piece {
         if (!tile.isOccupied()) return true;
 
         // Running into a friendy animal is not allowed
-        if (tile.getOwner() == getOwner()) return false;
+        if (tile.getOccupiedPiece().getOwner() == getOwner()) return false;
 
         // Running into an opponent with higher rank is not allowed unless it's in a trap
         Piece opponent = tile.getOccupiedPiece();

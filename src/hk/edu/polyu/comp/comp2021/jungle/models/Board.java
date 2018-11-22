@@ -107,13 +107,14 @@ public class Board {
 
     /**
      * Gets the coordinates of a piece with specific player
+     *
      * @param player The player
      * @param type   Type of piece
      * @return The coordinates, null if the piece is not in the board
      */
     public Coordinates getCoordinates(Player player, PieceType type) {
-        for(Piece p: coordinates.keySet()) {
-            if(p.getPieceType() == type && p.getOwner() == player)
+        for (Piece p : coordinates.keySet()) {
+            if (p.getPieceType() == type && p.getOwner() == player)
                 return coordinates.get(p);
         }
         return null;
@@ -137,7 +138,7 @@ public class Board {
             List<Coordinates> moves = availableMoves.get(from);
             moves.clear();
             Tile source = getTile(from);
-            if (!source.isOccupied() || source.getOwner() != currentPlayer) continue;
+            if (!source.isOccupied() || source.getOccupiedPiece().getOwner() != currentPlayer) continue;
             Piece piece = source.getOccupiedPiece();
             for (Coordinates to : availableMoves.keySet()) {
                 if (piece.isMoveableTo(to, this)) {
