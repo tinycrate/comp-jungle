@@ -17,8 +17,8 @@ public abstract class RiverJumperPiece extends Piece {
      *
      * @param owner The owner of the piece
      */
-    RiverJumperPiece(Player owner) {
-        super(owner);
+    RiverJumperPiece(Player owner, PieceType type) {
+        super(owner, type);
     }
 
     @Override
