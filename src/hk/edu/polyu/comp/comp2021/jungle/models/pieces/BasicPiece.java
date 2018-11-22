@@ -16,6 +16,7 @@ public abstract class BasicPiece extends Piece {
      * Most likely called by board
      *
      * @param owner The owner of the piece
+     * @param type  The type of the piece
      */
     BasicPiece(Player owner, PieceType type) {
         super(owner, type);
