@@ -54,6 +54,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         if (!gameBoardPanel.isBoardBound(board)) gameBoardPanel.bindBoard(board);
         statusLabel.setText(String.format("It's %s's turn!", board.getCurrentPlayer().getName()));
         statusLabel.setForeground((board.getCurrentPlayer() == board.getPlayerOne()) ? Color.RED : Color.BLUE);
+        gameBoardPanel.onBoardUpdated();
     }
 
     @Override
@@ -106,6 +107,10 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         notifyUser("To launch this game in command line mode, please pass -cli as an argument\nExample: java -jar junglegame.jar -cli");
     }
 
+    private void onGameBoardCommand(UserCommand command) {
+        commandListener.OnCommand(command);
+    }
+
     private void addComponents() {
         JPanel toolBarPanel = new JPanel(new BorderLayout());
         JPanel optionBarPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -131,5 +136,6 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         saveButton.addActionListener(this::onSaveClicked);
         openButton.addActionListener(this::onOpenClicked);
         cliButton.addActionListener(this::onCliClicked);
+        gameBoardPanel.setUserCommandListener(this::onGameBoardCommand);
     }
 }
