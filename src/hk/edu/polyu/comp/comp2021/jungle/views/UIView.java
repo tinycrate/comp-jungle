@@ -19,11 +19,12 @@ public interface UIView {
     void updateBoard(Board board);
 
     /**
-     * Gets a command from user
+     * Sets a command listener for this view
+     * When new command is received, the command listener will be triggered
      *
-     * @return A command
+     * @param listener The listener
      */
-    Command getCommand();
+    void setUserCommandListener(UserCommandListener listener);
 
     /**
      * Prompts the user for input
@@ -32,6 +33,14 @@ public interface UIView {
      * @return The user input
      */
     String promptUser(String message);
+
+    /**
+     * Prompts the user for a yes/no answer
+     *
+     * @param message The message
+     * @return The user input
+     */
+    boolean promptUserQuestion(String message);
 
     /**
      * Notifies the user a message

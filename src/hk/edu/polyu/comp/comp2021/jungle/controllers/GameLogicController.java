@@ -1,11 +1,10 @@
 package hk.edu.polyu.comp.comp2021.jungle.controllers;
 
-import hk.edu.polyu.comp.comp2021.jungle.Application;
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.BoardConfiguration;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.Player;
-import hk.edu.polyu.comp.comp2021.jungle.views.Command;
+import hk.edu.polyu.comp.comp2021.jungle.views.UserCommand;
 import hk.edu.polyu.comp.comp2021.jungle.views.UIView;
 
 /**
@@ -29,15 +28,12 @@ public class GameLogicController {
     /**
      * Starts the game loop
      */
-    @SuppressWarnings("InfiniteLoopStatement")
     public void Start() {
         view.init();
-        while (true) {
-            onCommand(view.getCommand());
-        }
+        view.setUserCommandListener(this::onCommand);
     }
 
-    private void onCommand(Command command) {
+    private void onCommand(UserCommand command) {
         switch (command.getType()) {
             case NEW:
                 onNewGame();
@@ -59,7 +55,7 @@ public class GameLogicController {
 
     private void onNewGame() {
         // Check if a game is saved
-        if (dirty && !promptQuestion("You have unsaved game! You may want to save it first. Create game anyways?")) {
+        if (dirty && !view.promptUserQuestion("You have unsaved game! You may want to save it first. Create game anyways?")) {
             return;
         }
         // Get player names
@@ -85,9 +81,9 @@ public class GameLogicController {
         view.updateBoard(board);
     }
 
-    private void onLoadGame(Command command) {
+    private void onLoadGame(UserCommand command) {
         // Check if a game is saved
-        if (dirty && !promptQuestion("You have unsaved game! You may want to save it first. Load anyways?")) {
+        if (dirty && !view.promptUserQuestion("You have unsaved game! You may want to save it first. Load anyways?")) {
             return;
         }
         BoardConfiguration configuration = BoardConfiguration.load(command.getArgs()[0]);
@@ -101,7 +97,7 @@ public class GameLogicController {
         }
     }
 
-    private void onSaveGame(Command command) {
+    private void onSaveGame(UserCommand command) {
         // Check if a game is playing
         if (board == null) {
             view.notifyUser("You have no game playing right now! Nothing is saved. ");
@@ -115,10 +111,10 @@ public class GameLogicController {
         }
     }
 
-    private void onMove(Command command) {
+    private void onMove(UserCommand command) {
         // Check if a game is playing
         if (board == null) {
-            if (!promptQuestion("Game is not started yet! Create one right now?")) return;
+            if (!view.promptUserQuestion("Game is not started yet! Create one right now?")) return;
             onNewGame();
             return;
         }
@@ -140,7 +136,7 @@ public class GameLogicController {
 
     private void onExit() {
         // Check if a game is saved
-        if (dirty && !promptQuestion("You have unsaved game! You may want to save it first. Exit anyways?")) {
+        if (dirty && !view.promptUserQuestion("You have unsaved game! You may want to save it first. Exit anyways?")) {
             return;
         }
         System.exit(0);
@@ -152,12 +148,4 @@ public class GameLogicController {
         System.exit(0);
     }
 
-    private boolean promptQuestion(String message) {
-        while (true) {
-            String response = view.promptUser(String.format("%s [y/n]", message)).toUpperCase().trim();
-            if (response.length() != 1) continue;
-            if (response.charAt(0) == 'Y') return true;
-            if (response.charAt(0) == 'N') return false;
-        }
-    }
 }
