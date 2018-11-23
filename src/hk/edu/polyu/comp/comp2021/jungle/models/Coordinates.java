@@ -71,6 +71,11 @@ public class Coordinates implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return String.format("%c%c", (char) (getX() + 'A'), (char) ('9' - getY()));
+    }
+
+    @Override
     public int hashCode() {
         return 31 * x + y;
     }
