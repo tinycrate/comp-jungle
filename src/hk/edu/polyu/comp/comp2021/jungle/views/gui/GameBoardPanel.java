@@ -1,11 +1,11 @@
-package hk.edu.polyu.comp.comp2021.jungle.views.guicomponent;
+package hk.edu.polyu.comp.comp2021.jungle.views.gui;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommand;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandListener;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandType;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.Command;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.CommandListener;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.CommandType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +31,7 @@ public class GameBoardPanel extends JPanel {
     private Board board;
     private final Timer updateTimer;
 
-    private UserCommandListener commandListener;
+    private CommandListener commandListener;
 
     private final Map<Piece, Image> imageMap = new HashMap<>();
     private final Map<Rectangle, Coordinates> hitboxToCoords = new HashMap<>();
@@ -121,7 +121,7 @@ public class GameBoardPanel extends JPanel {
      *
      * @param listener The listener
      */
-    public void setUserCommandListener(UserCommandListener listener) {
+    public void setUserCommandListener(CommandListener listener) {
         this.commandListener = listener;
     }
 
@@ -179,7 +179,7 @@ public class GameBoardPanel extends JPanel {
             Coordinates origin = board.getCoordinates(selectedPiece);
             java.util.List<Coordinates> availableMoves = board.getAvailableMoves(origin);
             if (availableMoves.contains(coords) && commandListener != null) {
-                commandListener.OnCommand(new UserCommand(UserCommandType.MOVE, new String[]{origin.toString(), coords.toString()}));
+                commandListener.OnCommand(new Command(CommandType.MOVE, new String[]{origin.toString(), coords.toString()}));
                 setSelectedPiece(null);
             }
         }

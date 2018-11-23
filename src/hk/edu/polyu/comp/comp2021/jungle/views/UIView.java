@@ -1,7 +1,7 @@
 package hk.edu.polyu.comp.comp2021.jungle.views;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandListener;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.CommandListener;
 
 /**
  * This interface defines the required methods to communicate with the Controllers
@@ -25,7 +25,7 @@ public interface UIView {
      *
      * @param listener The listener
      */
-    void setUserCommandListener(UserCommandListener listener);
+    void setUserCommandListener(CommandListener listener);
 
     /**
      * Prompts the user for input

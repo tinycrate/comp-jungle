@@ -4,7 +4,7 @@ import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.BoardConfiguration;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.Player;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommand;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.Command;
 import hk.edu.polyu.comp.comp2021.jungle.views.UIView;
 
 /**
@@ -33,7 +33,7 @@ public class GameLogicController {
         view.setUserCommandListener(this::onCommand);
     }
 
-    private void onCommand(UserCommand command) {
+    private void onCommand(Command command) {
         switch (command.getType()) {
             case NEW:
                 onNewGame();
@@ -81,7 +81,7 @@ public class GameLogicController {
         view.updateBoard(board);
     }
 
-    private void onLoadGame(UserCommand command) {
+    private void onLoadGame(Command command) {
         // Check if a game is saved
         if (dirty && !view.promptUserQuestion("You have unsaved game! You may want to save it first. Load anyways?")) {
             return;
@@ -97,7 +97,7 @@ public class GameLogicController {
         }
     }
 
-    private void onSaveGame(UserCommand command) {
+    private void onSaveGame(Command command) {
         // Check if a game is playing
         if (board == null) {
             view.notifyUser("You have no game playing right now! Nothing is saved. ");
@@ -111,7 +111,7 @@ public class GameLogicController {
         }
     }
 
-    private void onMove(UserCommand command) {
+    private void onMove(Command command) {
         // Check if a game is playing
         if (board == null) {
             if (!view.promptUserQuestion("Game is not started yet! Create one right now?")) return;
