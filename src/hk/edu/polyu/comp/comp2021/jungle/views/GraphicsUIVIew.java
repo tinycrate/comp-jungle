@@ -3,6 +3,7 @@ package hk.edu.polyu.comp.comp2021.jungle.views;
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -17,7 +18,9 @@ public class GraphicsUIVIew extends JFrame implements UIView {
     private final Button cliButton;
     private final Button newButton;
     private final Button saveButton;
-    private final Button loadButton;
+    private final Button openButton;
+
+    private final Label statusLabel;
 
     /**
      * Constructs the GUI View
@@ -32,7 +35,8 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         cliButton = new Button("Run in CLI...");
         newButton = new Button("New");
         saveButton = new Button("Save");
-        loadButton = new Button("Load");
+        openButton = new Button("Open");
+        statusLabel = new Label("Welcome!", Label.LEFT);
         addComponents();
         setListeners();
     }
@@ -79,11 +83,21 @@ public class GraphicsUIVIew extends JFrame implements UIView {
     }
 
     private void onSaveClicked(ActionEvent e) {
-
+        FileDialog fd = new FileDialog(this, "Save Game To...", FileDialog.SAVE);
+        fd.setVisible(true);
+        String filename = fd.getFile();
+        if (filename != null) {
+            commandListener.OnCommand(new UserCommand(UserCommandType.SAVE, new String[]{fd.getDirectory() + filename}));
+        }
     }
 
-    private void onLoadClicked(ActionEvent e) {
-
+    private void onOpenClicked(ActionEvent e) {
+        FileDialog fd = new FileDialog(this, "Load Game From...", FileDialog.LOAD);
+        fd.setVisible(true);
+        String filename = fd.getFile();
+        if (filename != null) {
+            commandListener.OnCommand(new UserCommand(UserCommandType.OPEN, new String[]{fd.getDirectory() + filename}));
+        }
     }
 
     private void onCliClicked(ActionEvent e) {
@@ -91,13 +105,19 @@ public class GraphicsUIVIew extends JFrame implements UIView {
     }
 
     private void addComponents() {
+        JPanel toolBarPanel = new JPanel(new BorderLayout());
         JPanel optionBarPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        toolBarPanel.setBorder(new EmptyBorder(0, 5, 0, 0));
+        toolBarPanel.setBackground(Color.WHITE);
         optionBarPanel.setBackground(Color.WHITE);
         optionBarPanel.add(cliButton);
         optionBarPanel.add(newButton);
         optionBarPanel.add(saveButton);
-        optionBarPanel.add(loadButton);
-        add(optionBarPanel, BorderLayout.PAGE_START);
+        optionBarPanel.add(openButton);
+        toolBarPanel.add(optionBarPanel, BorderLayout.EAST);
+        statusLabel.setForeground(Color.DARK_GRAY);
+        toolBarPanel.add(statusLabel, BorderLayout.WEST);
+        add(toolBarPanel, BorderLayout.PAGE_START);
         add(gameBoardPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(null);
@@ -107,7 +127,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
     private void setListeners() {
         newButton.addActionListener(this::onNewClicked);
         saveButton.addActionListener(this::onSaveClicked);
-        loadButton.addActionListener(this::onLoadClicked);
+        openButton.addActionListener(this::onOpenClicked);
         cliButton.addActionListener(this::onCliClicked);
     }
 }
