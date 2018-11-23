@@ -1,4 +1,4 @@
-package hk.edu.polyu.comp.comp2021.jungle.views;
+package hk.edu.polyu.comp.comp2021.jungle.views.usercommand;
 
 /**
  * Triggers when a player makes a command

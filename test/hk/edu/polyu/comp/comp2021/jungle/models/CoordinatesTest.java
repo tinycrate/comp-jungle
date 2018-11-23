@@ -4,8 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-// TODO: Unit tests
-
 /**
  * Unit test for Coordinates
  */
@@ -95,6 +93,19 @@ public class CoordinatesTest {
         Coordinates c = new Coordinates("C5");
         assertEquals(2, c.getX());
         assertEquals(4, c.getY());
+    }
+
+    /**
+     * Test case for toString()
+     */
+    @Test
+    public void testToString() {
+        Coordinates c = new Coordinates("A1");
+        Coordinates d = new Coordinates("G9");
+        Coordinates e = new Coordinates("C5");
+        assertEquals("A1", c.toString());
+        assertEquals("G9", d.toString());
+        assertEquals("C5", e.toString());
     }
 
     /**
