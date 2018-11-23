@@ -32,30 +32,29 @@ public abstract class RiverJumperPiece extends Piece {
         if (moveDis < 1) return false;
 
         if (moveDis > 1) {
+            if(board.getTile(coords).getTileType() != TileType.GRASS) return false;
             // Allow horizontal jump over river
-            if (coords.getX() == board.getCoordinates(this).getX()
-                    && (coords.getX() == 3 || coords.getX() == 4 || coords.getX() == 5)
-                    && Math.abs(coords.getY() - board.getCoordinates(this).getY()) == 3) {
+            if (isHorizontalJumpableGrid(coords, board)) {
+
+                // Check whether river tile has a rat, which is the only Piece that can go into river
+                int min = Math.min(board.getCoordinates(this).getX(), coords.getX());
+                Coordinates riverL = new Coordinates(min + 1, coords.getY());
+                Coordinates riverR = new Coordinates(min + 2, coords.getY());
+                if(board.getTile(riverL).isOccupied() || board.getTile(riverR).isOccupied())
+                    return false;
+                // Allow vertical jump over river
+            } else if(isVerticalJumpableGrid(coords, board)) {
 
                 // Check whether river tile has a rat, which is the only Piece that can go into river
                 int min = Math.min(board.getCoordinates(this).getY(), coords.getY());
                 Coordinates riverL = new Coordinates(coords.getX(), min + 1);
-                Coordinates riverR = new Coordinates(coords.getX(), min + 2);
-                return !board.getTile(riverL).isOccupied() && !board.getTile(riverR).isOccupied();
-
-                // Allow vertical jump over river
-            } else if (coords.getY() == board.getCoordinates(this).getY()
-                    && (coords.getY() == 1 || coords.getY() == 2 || coords.getY() == 4 || coords.getY() == 5)
-                    && Math.abs(coords.getX() - board.getCoordinates(this).getX()) == 4) {
-
-                // Check whether river tile has a rat, which is the only Piece that can go into river
-                int min = Math.min(board.getCoordinates(this).getX(), coords.getX());
-                Coordinates riverL = new Coordinates(coords.getY(), min + 1);
-                Coordinates riverM = new Coordinates(coords.getY(), min + 2);
-                Coordinates riverR = new Coordinates(coords.getY(), min + 3);
-                return !board.getTile(riverL).isOccupied() && !board.getTile(riverM).isOccupied() && !board.getTile(riverR).isOccupied();
+                Coordinates riverM = new Coordinates(coords.getX(), min + 2);
+                Coordinates riverR = new Coordinates(coords.getX(), min + 3);
+                if(board.getTile(riverL).isOccupied() || board.getTile(riverM).isOccupied() || board.getTile(riverR).isOccupied())
+                    return false;
+            } else {
+                return false;
             }
-            return false;
         }
 
         Tile tile = board.getTile(coords);
@@ -75,5 +74,21 @@ public abstract class RiverJumperPiece extends Piece {
         // Running into an animal with higher rank is not allowed unless it's in a trap
         Piece opponent = tile.getOccupiedPiece();
         return opponent.isWeakenByTrap(board) || opponent.getRank() <= getRank();
+    }
+
+    private boolean isHorizontalJumpableGrid(Coordinates coords, Board board) {
+        Coordinates myCoords = board.getCoordinates(this);
+        return coords.getY() == myCoords.getY()
+                && Math.abs(coords.getX() - myCoords.getX()) == 3
+                && (coords.getY() == 3 || coords.getY() == 4 || coords.getY() == 5)
+                && (myCoords.getX() == 0 || myCoords.getX() == 3 || myCoords.getX() == 6);
+    }
+
+    private boolean isVerticalJumpableGrid(Coordinates coords, Board board) {
+        Coordinates myCoords = board.getCoordinates(this);
+        return coords.getX() == myCoords.getX()
+                && Math.abs(coords.getY() - myCoords.getY()) == 4
+                && (coords.getX() == 1 || coords.getX() == 2 || coords.getX() == 4 || coords.getX() == 5)
+                && (myCoords.getY() == 2 || myCoords.getY() == 6);
     }
 }
