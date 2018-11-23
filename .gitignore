@@ -2,11 +2,12 @@
 /.gradle
 
 # Ignore local workspace propertices
-/.idea
+/.idea/*
 
 # Keep necessary xml configuration
 !/.idea/misc.xml
 !/.idea/inspectionProfiles/
+!/.idea/runConfigurations/
 
 # Ignore build path
 /build
