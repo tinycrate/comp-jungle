@@ -4,6 +4,9 @@ import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommand;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandListener;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandType;
 
 import java.util.Scanner;
 

@@ -1,6 +1,11 @@
 package hk.edu.polyu.comp.comp2021.jungle.views;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
+import hk.edu.polyu.comp.comp2021.jungle.views.guicomponent.GameBoardPanel;
+import hk.edu.polyu.comp.comp2021.jungle.views.guicomponent.ImageLoader;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommand;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandListener;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
