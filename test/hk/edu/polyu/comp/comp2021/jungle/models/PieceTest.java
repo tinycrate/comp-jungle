@@ -44,13 +44,10 @@ public class PieceTest {
      */
     @Test
     public void testElephant() {
-        Elephant piece = new Elephant(ORIGINAL, playerA);
-        testNormalTileMoving(piece);
-
+        Elephant piece = new Elephant(playerA);
         assertFalse(piece.isWeakenByTrap(board));
 
         assertEquals(playerA, piece.getOwner());
-        assertEquals(ORIGINAL, piece.getCoordinates());
         assertEquals("象", piece.getSymbol());
         assertEquals(RANK_ELEPHANT, piece.getRank());
     }
@@ -60,13 +57,11 @@ public class PieceTest {
      */
     @Test
     public void testLion() {
-        Lion piece = new Lion(ORIGINAL, playerA);
-        testNormalTileMoving(piece);
+        Lion piece = new Lion(playerA);
 
         assertFalse(piece.isWeakenByTrap(board));
 
         assertEquals(playerA, piece.getOwner());
-        assertEquals(ORIGINAL, piece.getCoordinates());
         assertEquals("獅", piece.getSymbol());
         assertEquals(RANK_LION, piece.getRank());
     }
@@ -76,13 +71,11 @@ public class PieceTest {
      */
     @Test
     public void testTiger() {
-        Tiger piece = new Tiger(ORIGINAL, playerA);
-        testNormalTileMoving(piece);
+        Tiger piece = new Tiger(playerA);
 
         assertFalse(piece.isWeakenByTrap(board));
 
         assertEquals(playerA, piece.getOwner());
-        assertEquals(ORIGINAL, piece.getCoordinates());
         assertEquals("虎", piece.getSymbol());
         assertEquals(RANK_TIGER, piece.getRank());
     }
@@ -92,13 +85,11 @@ public class PieceTest {
      */
     @Test
     public void testLeopard() {
-        Leopard piece = new Leopard(ORIGINAL, playerA);
-        testNormalTileMoving(piece);
+        Leopard piece = new Leopard(playerA);
 
         assertFalse(piece.isWeakenByTrap(board));
 
         assertEquals(playerA, piece.getOwner());
-        assertEquals(ORIGINAL, piece.getCoordinates());
         assertEquals("豹", piece.getSymbol());
         assertEquals(RANK_LEOPARD, piece.getRank());
     }
@@ -108,13 +99,11 @@ public class PieceTest {
      */
     @Test
     public void testWolf() {
-        Wolf piece = new Wolf(ORIGINAL, playerA);
-        testNormalTileMoving(piece);
+        Wolf piece = new Wolf(playerA);
 
         assertFalse(piece.isWeakenByTrap(board));
 
         assertEquals(playerA, piece.getOwner());
-        assertEquals(ORIGINAL, piece.getCoordinates());
         assertEquals("狼", piece.getSymbol());
         assertEquals(RANK_WOLF, piece.getRank());
     }
@@ -124,13 +113,11 @@ public class PieceTest {
      */
     @Test
     public void testDog() {
-        Dog piece = new Dog(ORIGINAL, playerA);
-        testNormalTileMoving(piece);
+        Dog piece = new Dog(playerA);
 
         assertFalse(piece.isWeakenByTrap(board));
 
         assertEquals(playerA, piece.getOwner());
-        assertEquals(ORIGINAL, piece.getCoordinates());
         assertEquals("狗", piece.getSymbol());
         assertEquals(RANK_DOG, piece.getRank());
     }
@@ -140,13 +127,11 @@ public class PieceTest {
      */
     @Test
     public void testCat() {
-        Cat piece = new Cat(ORIGINAL, playerA);
-        testNormalTileMoving(piece);
+        Cat piece = new Cat(playerA);
 
         assertFalse(piece.isWeakenByTrap(board));
 
         assertEquals(playerA, piece.getOwner());
-        assertEquals(ORIGINAL, piece.getCoordinates());
         assertEquals("貓", piece.getSymbol());
         assertEquals(RANK_CAT, piece.getRank());
     }
@@ -156,33 +141,12 @@ public class PieceTest {
      */
     @Test
     public void testRat() {
-        Rat piece = new Rat(ORIGINAL, playerA);
-        testNormalTileMoving(piece);
+        Rat piece = new Rat(playerA);
 
         assertFalse(piece.isWeakenByTrap(board));
 
         assertEquals(playerA, piece.getOwner());
-        assertEquals(ORIGINAL, piece.getCoordinates());
         assertEquals("鼠", piece.getSymbol());
         assertEquals(RANK_RAT, piece.getRank());
-    }
-
-
-    /**
-     * Test the basic move for the piece
-     * @param piece Piece to be tested
-     */
-    public void testNormalTileMoving(Piece piece) {
-        Coordinates left = new Coordinates("E2");
-        Coordinates right = new Coordinates("G2");
-        Coordinates up = new Coordinates("F3");
-        Coordinates down = new Coordinates("F1");
-
-        assertFalse(piece.isWeakenByTrap(board));
-        assertFalse(piece.isMoveableTo(ORIGINAL, board));
-        assertTrue(piece.isMoveableTo(left, board));
-        assertTrue(piece.isMoveableTo(right, board));
-        assertTrue(piece.isMoveableTo(up, board));
-        assertTrue(piece.isMoveableTo(down, board));
     }
 }
