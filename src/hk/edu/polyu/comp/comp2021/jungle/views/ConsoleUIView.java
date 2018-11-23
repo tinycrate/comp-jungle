@@ -29,15 +29,19 @@ public class ConsoleUIView implements UIView {
     }
 
     @Override
-    public Command getCommand() {
-        while (true) {
+    @SuppressWarnings("InfiniteLoopStatement")
+    public void setUserCommandListener(UserCommandListener listener) {
+        while (true) { // In CLI mode, we continously prompt the user for command
             System.out.print("> ");
             Scanner scanner = new Scanner(System.in);
             String commandStr = scanner.nextLine();
-            CommandType type = Command.getCommandType(commandStr);
+            UserCommandType type = UserCommand.getCommandType(commandStr);
             if (type != null) {
-                Command command = Command.getCommand(commandStr);
-                if (command != null) return command;
+                UserCommand command = UserCommand.getCommand(commandStr);
+                if (command != null) {
+                    listener.OnCommand(command);
+                    continue;
+                }
                 System.out.format("Invalid command. Usage: \"%s\"%n", type.getCommandUsage());
             } else {
                 System.out.println("Unknown command.");
@@ -50,6 +54,16 @@ public class ConsoleUIView implements UIView {
         System.out.print(message);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    @Override
+    public boolean promptUserQuestion(String message){
+        while (true) {
+            String response = promptUser(String.format("%s [y/n]", message)).toUpperCase().trim();
+            if (response.length() != 1) continue;
+            if (response.charAt(0) == 'Y') return true;
+            if (response.charAt(0) == 'N') return false;
+        }
     }
 
     @Override
@@ -101,7 +115,7 @@ public class ConsoleUIView implements UIView {
 
     private void printWelcomeMessage() {
         // TODO: Beautify it
-        System.out.format("Welcome!! \nType %s to start a new game \nOr %s to load a saved game.%n", CommandType.NEW.getCommandUsage(), CommandType.OPEN.getCommandUsage());
+        System.out.format("Welcome!! \nType %s to start a new game \nOr %s to load a saved game.%n", UserCommandType.NEW.getCommandUsage(), UserCommandType.OPEN.getCommandUsage());
     }
 
     private void clearScreen() {

@@ -5,7 +5,7 @@ import java.util.StringJoiner;
 /**
  * This enum represent different types of Commands available
  */
-public enum CommandType {
+public enum UserCommandType {
     /**
      * Creats a new game
      * Usage: NEW
@@ -38,7 +38,7 @@ public enum CommandType {
     private final int argsCount;
     private final String[] args;
 
-    CommandType(int argsCount, String... args) {
+    UserCommandType(int argsCount, String... args) {
         this.argsCount = argsCount;
         this.args = args;
     }

@@ -9,10 +9,11 @@ public class Application {
 
     /**
      * The entry point of the application
-     * @param args Command line parameters
+     *
+     * @param args Command line arguments
      */
     public static void main(String[] args) {
         ApplicationController app = new ApplicationController();
-        app.Run();
+        app.Run(args);
     }
 }
