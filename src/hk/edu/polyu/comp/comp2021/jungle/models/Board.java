@@ -124,6 +124,16 @@ public class Board {
     }
 
     /**
+     * Gets all available moves originated from a Coordinates `from`
+     *
+     * @param from The origin
+     * @return All available moves
+     */
+    public List<Coordinates> getAvailableMoves(Coordinates from) {
+        return new ArrayList<>(availableMoves.get(from));
+    }
+
+    /**
      * Subscribes to a DenEvent, which will be triggered when a piece is move into a Den
      *
      * @param listener The event listener
@@ -186,9 +196,9 @@ public class Board {
         if (destination.isOccupied()) {
             removePiece(destination.getOccupiedPiece());
         }
+        coordinatesMap.replace(piece, coords);
         origin.setOccupiedPiece(null);
         destination.setOccupiedPiece(piece);
-        coordinatesMap.replace(piece, coords);
     }
 
 }
