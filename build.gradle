@@ -1,29 +1,47 @@
+// Initialise Gradle project with Java plugins
 plugins {
     id 'java'
     id 'application'
     id 'jacoco'
 }
 
+// Package group
 group 'hk.edu.polyu.comp.comp2021'
+
+// Version
 version '1.0'
 
-mainClassName = 'hk.edu.polyu.comp.comp2021.jungle.Application'
+// Mininum and target Java version
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
+// Set the project main class
+mainClassName = 'hk.edu.polyu.comp.comp2021.jungle.Application'
+
+// Maven repo
 repositories {
     jcenter()
 }
 
+// Project dependencies
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+// Add necessary attributes into /MEDA-INF/MANIFEST.MF
 jar {
     manifest {
         attributes('Main-Class': mainClassName)
     }
 }
 
+// Use custom project structure instead of Maven style
+// /                        | Project root
+// ├ src/                   | Source code folder
+// ├ resources/             | Resource folder
+// ├ test/                  | Test code folder
+// └ test-resources/        | Test resource folder
+//
 sourceSets {
     main {
         java { srcDirs = ['src'] }
@@ -35,6 +53,7 @@ sourceSets {
     }
 }
 
+// Configure unit test to use Jacoco for generating coverage
 test {
     jacoco {
         append = false
@@ -43,13 +62,15 @@ test {
     }
 }
 
+// Jacoco configuretion
 jacoco {
-    toolVersion = "0.8.1"
+    toolVersion = "0.8.2"
 }
 
+// Configure jacoco to generate coverage report
 jacocoTestReport {
     reports {
-        xml.enabled = false
+        xml.enabled = true
         csv.enabled = false
         html.destination file("${buildDir}/jacoco/html")
     }
@@ -60,4 +81,9 @@ jacocoTestReport {
             ])
         })
     }
+}
+
+// Force javac to compile with UTF-8 encoding
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
