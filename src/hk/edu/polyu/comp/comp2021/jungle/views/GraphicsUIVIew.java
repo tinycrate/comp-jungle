@@ -51,7 +51,9 @@ public class GraphicsUIVIew extends JFrame implements UIView {
 
     @Override
     public void updateBoard(Board board) {
-        if (!gameBoardPanel.isBoardBound()) gameBoardPanel.bindBoard(board);
+        if (!gameBoardPanel.isBoardBound(board)) gameBoardPanel.bindBoard(board);
+        statusLabel.setText(String.format("It's %s's turn!", board.getCurrentPlayer().getName()));
+        statusLabel.setForeground((board.getCurrentPlayer() == board.getPlayerOne()) ? Color.RED : Color.BLUE);
     }
 
     @Override
@@ -116,7 +118,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         optionBarPanel.add(openButton);
         toolBarPanel.add(optionBarPanel, BorderLayout.EAST);
         statusLabel.setForeground(Color.DARK_GRAY);
-        toolBarPanel.add(statusLabel, BorderLayout.WEST);
+        toolBarPanel.add(statusLabel, BorderLayout.CENTER);
         add(toolBarPanel, BorderLayout.PAGE_START);
         add(gameBoardPanel, BorderLayout.CENTER);
         pack();

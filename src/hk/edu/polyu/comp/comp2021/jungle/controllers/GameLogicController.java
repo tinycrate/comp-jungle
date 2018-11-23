@@ -144,7 +144,7 @@ public class GameLogicController {
 
     private void onGameOver(Player winingPlayer) {
         view.updateBoard(board);
-        view.promptUser(String.format("%1$s's animals ruin their opponent's den abruptly. %1$s wins! [Enter]\n", winingPlayer.getName()));
+        view.notifyUser(String.format("%1$s's animals ruin their opponent's den abruptly. %1$s wins!\n(The game will now unfortunately exit becuase that's our project requirement.)", winingPlayer.getName()));
         System.exit(0);
     }
 
