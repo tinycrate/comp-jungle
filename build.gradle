@@ -76,9 +76,10 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                    '/hk/edu/polyu/comp/comp2021/jungle/Application.class'
-            ])
+            fileTree(
+                    dir: it,
+                    include: ['/hk/edu/polyu/comp/comp2021/jungle/models/**']
+            )
         })
     }
 }
