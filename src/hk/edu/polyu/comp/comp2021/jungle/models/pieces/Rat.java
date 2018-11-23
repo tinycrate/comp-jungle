@@ -18,12 +18,7 @@ public class Rat extends Piece {
      * @param owner The owner of the piece
      */
     public Rat(Player owner) {
-        super(owner);
-    }
-
-    @Override
-    public int getRank() {
-        return 1;
+        super(owner, PieceType.RAT);
     }
 
     @Override
@@ -43,7 +38,7 @@ public class Rat extends Piece {
         if (!destination.isOccupied()) return true;
 
         // Runnning into friendly pieces is not allowed
-        if (destination.getOwner() == getOwner()) return false;
+        if (destination.getOccupiedPiece().getOwner() == getOwner()) return false;
 
         // Going from land to river but someone's in the way is not allowed
         if (source.getTileType() == TileType.GRASS && destination.getTileType() == TileType.RIVER) {
@@ -62,10 +57,5 @@ public class Rat extends Piece {
         }
 
         return true;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "鼠";
     }
 }
