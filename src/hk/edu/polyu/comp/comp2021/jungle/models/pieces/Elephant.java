@@ -18,12 +18,7 @@ public class Elephant extends Piece {
      * @param owner The owner of the piece
      */
     public Elephant(Player owner) {
-        super(owner);
-    }
-
-    @Override
-    public int getRank() {
-        return 8;
+        super(owner, PieceType.ELEPHANT);
     }
 
     @Override
@@ -45,15 +40,10 @@ public class Elephant extends Piece {
         if (!tile.isOccupied()) return true;
 
         // Running into a friendly piece is not allowed
-        if (tile.getOwner() == getOwner()) return false;
+        if (tile.getOccupiedPiece().getOwner() == getOwner()) return false;
 
         // Running into a rat unless it's in a trap, otherwise anything can be eaten
         Piece opponent = tile.getOccupiedPiece();
         return opponent.isWeakenByTrap(board) || !(opponent instanceof Rat);
-    }
-
-    @Override
-    public String getSymbol() {
-        return "象";
     }
 }

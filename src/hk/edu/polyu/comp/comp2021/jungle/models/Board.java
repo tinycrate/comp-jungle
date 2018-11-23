@@ -1,7 +1,11 @@
 package hk.edu.polyu.comp.comp2021.jungle.models;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
+import hk.edu.polyu.comp.comp2021.jungle.models.pieces.PieceType;
+import hk.edu.polyu.comp.comp2021.jungle.models.tiles.DenEventListener;
+import hk.edu.polyu.comp.comp2021.jungle.models.tiles.DenTile;
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
+import hk.edu.polyu.comp.comp2021.jungle.models.tiles.TileType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +31,8 @@ public class Board {
 
     private Player currentPlayer;
 
-    // Additional effort is made to track the coordinates of the piece instead of finding them each time
-    private final HashMap<Piece, Coordinates> coordinates = new HashMap<>();
+    // Additional effort is made to track the coordinatesMap of the piece instead of finding them each time
+    private final HashMap<Piece, Coordinates> coordinatesMap = new HashMap<>();
     private final HashMap<Coordinates, List<Coordinates>> availableMoves = new HashMap<>();
 
     /**
@@ -60,10 +64,10 @@ public class Board {
     }
 
     /**
-     * Gets a tile by coordinates
+     * Gets a tile by coordinatesMap
      *
-     * @param coords The coordinates
-     * @return The Tile in that coordinates
+     * @param coords The coordinatesMap
+     * @return The Tile in that coordinatesMap
      */
     public Tile getTile(Coordinates coords) {
         return tiles[coords.getX()][coords.getY()].getClone();
@@ -91,17 +95,48 @@ public class Board {
     }
 
     /**
-     * Gets the coordinates of a piece
+     * Gets the coordinatesMap of a piece
      *
      * @param piece The piece in the board
-     * @return The coordinates, null if the piece is not in the board
+     * @return The coordinatesMap, null if the piece is not in the board
      */
     public Coordinates getCoordinates(Piece piece) {
-        Coordinates coords = coordinates.get(piece);
+        Coordinates coords = coordinatesMap.get(piece);
         if (coords != null && getTile(coords).getOccupiedPiece() != piece) {
             throw new IllegalStateException("Coordinates out of sync.");
         }
         return coords;
+    }
+
+    /**
+     * Gets the coordinatesMap of a piece with specific player
+     *
+     * @param player The player
+     * @param type   Type of piece
+     * @return The coordinatesMap, null if the piece is not in the board
+     */
+    public Coordinates getCoordinates(Player player, PieceType type) {
+        for (Piece p : coordinatesMap.keySet()) {
+            if (p.getPieceType() == type && p.getOwner() == player)
+                return coordinatesMap.get(p);
+        }
+        return null;
+    }
+
+    /**
+     * Subscribes to a DenEvent, which will be triggered when a piece is move into a Den
+     *
+     * @param listener The event listener
+     */
+    public void subscribeDenEvent(DenEventListener listener) {
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+            for (int y = 0; y < BOARD_HEIGHT; y++) {
+                Tile tile = tiles[x][y];
+                if (tile.getTileType() == TileType.DEN) {
+                    ((DenTile) tile).SubscribeEvent(listener);
+                }
+            }
+        }
     }
 
     private void initializeBoard() {
@@ -109,7 +144,7 @@ public class Board {
             for (int y = 0; y < BOARD_HEIGHT; y++) {
                 Coordinates coords = new Coordinates(x, y);
                 Tile tile = getTile(coords);
-                if (tile.isOccupied()) coordinates.put(tile.getOccupiedPiece(), coords);
+                if (tile.isOccupied()) coordinatesMap.put(tile.getOccupiedPiece(), coords);
                 availableMoves.put(new Coordinates(x, y), new ArrayList<>());
             }
         }
@@ -122,7 +157,7 @@ public class Board {
             List<Coordinates> moves = availableMoves.get(from);
             moves.clear();
             Tile source = getTile(from);
-            if (!source.isOccupied() || source.getOwner() != currentPlayer) continue;
+            if (!source.isOccupied() || source.getOccupiedPiece().getOwner() != currentPlayer) continue;
             Piece piece = source.getOccupiedPiece();
             for (Coordinates to : availableMoves.keySet()) {
                 if (piece.isMoveableTo(to, this)) {
@@ -141,7 +176,7 @@ public class Board {
         Coordinates coords = getCoordinates(piece);
         Tile tile = tiles[coords.getX()][coords.getY()];
         tile.setOccupiedPiece(null);
-        coordinates.replace(piece, null);
+        coordinatesMap.replace(piece, null);
     }
 
     private void setOrReplacePiece(Piece piece, Coordinates coords) {
@@ -153,7 +188,7 @@ public class Board {
         }
         origin.setOccupiedPiece(null);
         destination.setOccupiedPiece(piece);
-        coordinates.replace(piece, coords);
+        coordinatesMap.replace(piece, coords);
     }
 
 }

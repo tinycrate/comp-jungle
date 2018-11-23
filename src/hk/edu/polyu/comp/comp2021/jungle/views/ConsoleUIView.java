@@ -2,6 +2,7 @@ package hk.edu.polyu.comp.comp2021.jungle.views;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
+import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
 
 import java.util.Scanner;
@@ -73,14 +74,15 @@ public class ConsoleUIView implements UIView {
                 Tile tile = board.getTile(new Coordinates(x, y));
                 String symbol;
                 if (tile.isOccupied()) {
-                    symbol = tile.getOccupiedPiece().getSymbol();
-                    symbol = String.format((tile.getOwner() == board.getCurrentPlayer()) ? "(%s)" : "%s", symbol);
+                    Piece piece = tile.getOccupiedPiece();
+                    symbol = piece.getSymbol();
+                    symbol = String.format((piece.getOwner() == board.getCurrentPlayer()) ? "(%s)" : "%s", symbol);
                     switch (tile.getTileType()) {
                         case RIVER:
                             symbol = String.format("~%s~", symbol);
                             break;
                         case TRAP:
-                            if (tile.getOccupiedPiece().isWeakenByTrap(board)) symbol = String.format("{%s}", symbol);
+                            if (piece.isWeakenByTrap(board)) symbol = String.format("{%s}", symbol);
                             break;
                     }
                     while (symbol.length() < 5) symbol = String.format(" %s ", symbol);
@@ -91,7 +93,10 @@ public class ConsoleUIView implements UIView {
             }
             System.out.println("|");
         }
-        System.out.println("   +  －  +  －  +  －  +  －  +  －  +  －  +  －  +");
+        System.out.println("   +  －  +  －  +  －  +  －  +  －  +  －  +  －  +\n");
+        System.out.println(String.format((board.getCurrentPlayer() == board.getPlayerOne())
+                ? "Current Player: [%s] %s"
+                : "Current Player: %s [%s]", board.getPlayerOne(), board.getPlayerTwo()));
     }
 
     private void printWelcomeMessage() {

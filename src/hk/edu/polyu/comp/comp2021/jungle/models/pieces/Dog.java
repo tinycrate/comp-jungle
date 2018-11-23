@@ -14,16 +14,6 @@ public class Dog extends BasicPiece {
      * @param owner The owner of the piece
      */
     public Dog(Player owner) {
-        super(owner);
-    }
-
-    @Override
-    public int getRank() {
-        return 3;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "狗";
+        super(owner, PieceType.DOG);
     }
 }

@@ -14,16 +14,7 @@ public class Cat extends BasicPiece {
      * @param owner The owner of the piece
      */
     public Cat(Player owner) {
-        super(owner);
+        super(owner, PieceType.CAT);
     }
 
-    @Override
-    public int getRank() {
-        return 2;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "貓";
-    }
 }

@@ -14,16 +14,6 @@ public class Leopard extends BasicPiece {
      * @param owner The owner of the piece
      */
     public Leopard(Player owner) {
-        super(owner);
-    }
-
-    @Override
-    public int getRank() {
-        return 5;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "豹";
+        super(owner, PieceType.LEOPARD);
     }
 }

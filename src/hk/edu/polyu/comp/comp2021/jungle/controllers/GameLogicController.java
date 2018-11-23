@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.jungle.controllers;
 
+import hk.edu.polyu.comp.comp2021.jungle.Application;
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.BoardConfiguration;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
@@ -78,7 +79,9 @@ public class GameLogicController {
             }
         }
         // Creates new game
+        dirty = true;
         board = new Board(BoardConfiguration.getDefault(playerOne, playerTwo));
+        board.subscribeDenEvent(this::onGameOver);
         view.updateBoard(board);
     }
 
@@ -89,7 +92,9 @@ public class GameLogicController {
         }
         BoardConfiguration configuration = BoardConfiguration.load(command.getArgs()[0]);
         if (configuration != null) {
+            dirty = false;
             board = new Board(configuration);
+            board.subscribeDenEvent(this::onGameOver);
             view.updateBoard(board);
         } else {
             view.notifyUser("Load game failed! Check your file path and try again? ");
@@ -141,6 +146,11 @@ public class GameLogicController {
         System.exit(0);
     }
 
+    private void onGameOver(Player winingPlayer) {
+        view.updateBoard(board);
+        view.promptUser(String.format("%1$s's animals ruin their opponent's den abruptly. %1$s wins! [Enter]\n", winingPlayer.getName()));
+        System.exit(0);
+    }
 
     private boolean promptQuestion(String message) {
         while (true) {
