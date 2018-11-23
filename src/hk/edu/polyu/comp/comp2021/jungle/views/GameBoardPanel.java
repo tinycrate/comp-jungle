@@ -7,6 +7,7 @@ import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,12 +23,16 @@ class GameBoardPanel extends JPanel {
     private static final int PIECE_HEIGHT_PX = 64;
 
     private static final float RECT_HOVER_TRANSPARENCY = 0.3f;
+    private static final float RECT_HINT_TRANSPARENCY = 0.2f;
 
     private Board board;
     private final Timer updateTimer;
 
+    private UserCommandListener commandListener;
+
     private final Map<Piece, Image> imageMap = new HashMap<>();
-    private final Map<Rectangle, Coordinates> hitboxMap = new HashMap<>();
+    private final Map<Rectangle, Coordinates> hitboxToCoords = new HashMap<>();
+    private final Map<Coordinates, Rectangle> coordsToHitbox = new HashMap<>();
 
     private final Image boardImage = ImageLoader.loadImageFromAssets("board.png");
 
@@ -37,7 +42,7 @@ class GameBoardPanel extends JPanel {
     /**
      * Constructs the game screen
      */
-    GameBoardPanel() {
+    public GameBoardPanel() {
         super();
         updateTimer = new Timer(16, this::onUpdate);
         Dimension size = new Dimension(BOARD_WIDTH_PX, BOARD_HEIGHT_PX);
@@ -66,15 +71,18 @@ class GameBoardPanel extends JPanel {
      *
      * @param board The board
      */
-    void bindBoard(Board board) {
-        this.board = board;
+    public void bindBoard(Board board) {
+        setSelectedPiece(null);
         imageMap.clear();
-        hitboxMap.clear();
+        hitboxToCoords.clear();
+        coordsToHitbox.clear();
+        this.board = board;
         for (int x = 0; x < Board.BOARD_WIDTH; x++) {
             for (int y = 0; y < Board.BOARD_HEIGHT; y++) {
                 Coordinates coords = new Coordinates(x, y);
                 Rectangle hitbox = new Rectangle(toScreenSpacePoint(coords), new Dimension(PIECE_WIDTH_PX, PIECE_HEIGHT_PX));
-                hitboxMap.put(hitbox, coords);
+                hitboxToCoords.put(hitbox, coords);
+                coordsToHitbox.put(coords, hitbox);
                 Piece piece = board.getTile(coords).getOccupiedPiece();
                 if (piece != null) {
                     String playerColor = (piece.getOwner() == board.getPlayerOne()) ? "red" : "blue";
@@ -88,6 +96,13 @@ class GameBoardPanel extends JPanel {
     }
 
     /**
+     * Called when the board is being updated
+     */
+    public void onBoardUpdated() {
+        setSelectedPiece(null);
+    }
+
+    /**
      * Checks if a board is being bound to this panel
      *
      * @param board The board to be checked
@@ -97,6 +112,16 @@ class GameBoardPanel extends JPanel {
         return board != null && this.board == board;
     }
 
+    /**
+     * Sets a command listener for this game panel
+     * When a user interacts with this panel and a command is issued, the command listener will be triggered
+     *
+     * @param listener The listener
+     */
+    public void setUserCommandListener(UserCommandListener listener) {
+        this.commandListener = listener;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -104,13 +129,28 @@ class GameBoardPanel extends JPanel {
         g2.drawImage(boardImage, 0, 0, null);
         if (board == null) return;
         if (hoveredRect != null) {
-            Piece piece = board.getTile(hitboxMap.get(hoveredRect)).getOccupiedPiece();
-            if (piece != null) {
+            Piece piece = board.getTile(hitboxToCoords.get(hoveredRect)).getOccupiedPiece();
+            if (piece != null && piece.getOwner() == board.getCurrentPlayer()) {
                 g2.setColor(Color.DARK_GRAY);
                 g2.setComposite(AlphaComposite.SrcOver.derive(RECT_HOVER_TRANSPARENCY));
                 g2.fillRect(hoveredRect.x, hoveredRect.y, hoveredRect.width, hoveredRect.height);
                 g2.setComposite(AlphaComposite.SrcOver);
             }
+        }
+        java.util.List<Coordinates> availableMoves = new ArrayList<>();
+        if (selectedPiece != null) {
+            Rectangle selectedRect = coordsToHitbox.get(board.getCoordinates(selectedPiece));
+            g2.setColor(Color.BLUE);
+            g2.setStroke(new BasicStroke(3));
+            g2.draw(selectedRect);
+            g2.setColor((selectedPiece.getOwner() == board.getPlayerOne()) ? Color.RED : Color.BLUE);
+            availableMoves.addAll(board.getAvailableMoves(board.getCoordinates(selectedPiece)));
+        }
+        for (Coordinates coords : availableMoves) {
+            Rectangle rect = coordsToHitbox.get(coords);
+            g2.setComposite(AlphaComposite.SrcOver.derive(RECT_HINT_TRANSPARENCY));
+            g2.fillRect(rect.x, rect.y, rect.width, rect.height);
+            g2.setComposite(AlphaComposite.SrcOver);
         }
         for (Piece piece : imageMap.keySet()) {
             Coordinates coords = board.getCoordinates(piece);
@@ -122,16 +162,24 @@ class GameBoardPanel extends JPanel {
     }
 
     private void onMouseMoved(MouseEvent e) {
-        for (Rectangle rect : hitboxMap.keySet()) {
-            if (rect.contains(e.getPoint())) {
-                setHoveredRect(rect);
-                return;
-            }
-        }
-        setHoveredRect(null);
+        setHoveredRect(getCollidedHitbox(e.getPoint()));
     }
 
     private void onMouseClicked(MouseEvent e) {
+        Rectangle hitbox = getCollidedHitbox(e.getPoint());
+        if (hitbox == null) return;
+        Coordinates coords = hitboxToCoords.get(hitbox);
+        Piece piece = board.getTile(coords).getOccupiedPiece();
+        if (piece != null && piece.getOwner() == board.getCurrentPlayer()) {
+            setSelectedPiece(piece);
+        } else if (selectedPiece != null) {
+            Coordinates origin = board.getCoordinates(selectedPiece);
+            java.util.List<Coordinates> availableMoves = board.getAvailableMoves(origin);
+            if (availableMoves.contains(coords) && commandListener != null) {
+                commandListener.OnCommand(new UserCommand(UserCommandType.MOVE, new String[]{origin.toString(), coords.toString()}));
+                setSelectedPiece(null);
+            }
+        }
     }
 
     private void onUpdate(ActionEvent event) {
@@ -142,7 +190,20 @@ class GameBoardPanel extends JPanel {
         return new Point(coordinates.getX() * (PIECE_WIDTH_PX + 2) + 2, coordinates.getY() * (PIECE_HEIGHT_PX + 2) + 2);
     }
 
+    private Rectangle getCollidedHitbox(Point point) {
+        for (Rectangle rect : hitboxToCoords.keySet()) {
+            if (rect.contains(point)) {
+                return rect;
+            }
+        }
+        return null;
+    }
+
     private void setHoveredRect(Rectangle hoveredRect) {
         this.hoveredRect = hoveredRect;
+    }
+
+    private void setSelectedPiece(Piece selectedPiece) {
+        this.selectedPiece = selectedPiece;
     }
 }
