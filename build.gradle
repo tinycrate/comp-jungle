@@ -88,3 +88,8 @@ jacocoTestReport {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+// Force javadoc output UTF-8 website
+javadoc {
+    options.encoding = 'UTF-8'
+}
