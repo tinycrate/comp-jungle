@@ -1,11 +1,11 @@
-package hk.edu.polyu.comp.comp2021.jungle.views.usercommand;
+package hk.edu.polyu.comp.comp2021.jungle.controllers.command;
 
 import java.util.StringJoiner;
 
 /**
  * This enum represent different types of Commands available
  */
-public enum UserCommandType {
+public enum CommandType {
     /**
      * Creats a new game
      * Usage: NEW
@@ -38,7 +38,7 @@ public enum UserCommandType {
     private final int argsCount;
     private final String[] args;
 
-    UserCommandType(int argsCount, String... args) {
+    CommandType(int argsCount, String... args) {
         this.argsCount = argsCount;
         this.args = args;
     }

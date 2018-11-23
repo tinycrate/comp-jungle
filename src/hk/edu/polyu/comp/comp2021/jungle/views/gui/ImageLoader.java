@@ -1,4 +1,4 @@
-package hk.edu.polyu.comp.comp2021.jungle.views.guicomponent;
+package hk.edu.polyu.comp.comp2021.jungle.views.gui;
 
 import hk.edu.polyu.comp.comp2021.jungle.Application;
 

@@ -4,9 +4,9 @@ import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
 import hk.edu.polyu.comp.comp2021.jungle.models.tiles.Tile;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommand;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandListener;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandType;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.Command;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.CommandListener;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.CommandType;
 
 import java.util.Scanner;
 
@@ -33,14 +33,14 @@ public class ConsoleUIView implements UIView {
 
     @Override
     @SuppressWarnings("InfiniteLoopStatement")
-    public void setUserCommandListener(UserCommandListener listener) {
+    public void setUserCommandListener(CommandListener listener) {
         while (true) { // In CLI mode, we continously prompt the user for command
             System.out.print("> ");
             Scanner scanner = new Scanner(System.in);
             String commandStr = scanner.nextLine();
-            UserCommandType type = UserCommand.getCommandType(commandStr);
+            CommandType type = Command.getCommandType(commandStr);
             if (type != null) {
-                UserCommand command = UserCommand.getCommand(commandStr);
+                Command command = Command.getCommand(commandStr);
                 if (command != null) {
                     listener.OnCommand(command);
                     continue;
@@ -117,7 +117,7 @@ public class ConsoleUIView implements UIView {
     }
 
     private void printWelcomeMessage() {
-        System.out.format("Welcome!! \nType %s to start a new game \nOr %s to load a saved game.%n", UserCommandType.NEW.getCommandUsage(), UserCommandType.OPEN.getCommandUsage());
+        System.out.format("Welcome!! \nType %s to start a new game \nOr %s to load a saved game.%n", CommandType.NEW.getCommandUsage(), CommandType.OPEN.getCommandUsage());
     }
 
     private void clearScreen() {

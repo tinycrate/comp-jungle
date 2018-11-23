@@ -1,11 +1,11 @@
 package hk.edu.polyu.comp.comp2021.jungle.views;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
-import hk.edu.polyu.comp.comp2021.jungle.views.guicomponent.GameBoardPanel;
-import hk.edu.polyu.comp.comp2021.jungle.views.guicomponent.ImageLoader;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommand;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandListener;
-import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandType;
+import hk.edu.polyu.comp.comp2021.jungle.views.gui.GameBoardPanel;
+import hk.edu.polyu.comp.comp2021.jungle.views.gui.ImageLoader;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.Command;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.CommandListener;
+import hk.edu.polyu.comp.comp2021.jungle.controllers.command.CommandType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
  */
 public class GraphicsUIVIew extends JFrame implements UIView {
 
-    private UserCommandListener commandListener;
+    private CommandListener commandListener;
     private final GameBoardPanel gameBoardPanel;
 
     private final Button cliButton;
@@ -63,7 +63,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
     }
 
     @Override
-    public void setUserCommandListener(UserCommandListener listener) {
+    public void setUserCommandListener(CommandListener listener) {
         this.commandListener = listener;
     }
 
@@ -86,7 +86,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
 
     private void onNewClicked(ActionEvent e) {
         if (commandListener != null) {
-            commandListener.OnCommand(new UserCommand(UserCommandType.NEW, null));
+            commandListener.OnCommand(new Command(CommandType.NEW, null));
         }
     }
 
@@ -95,7 +95,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         fd.setVisible(true);
         String filename = fd.getFile();
         if (filename != null) {
-            commandListener.OnCommand(new UserCommand(UserCommandType.SAVE, new String[]{fd.getDirectory() + filename}));
+            commandListener.OnCommand(new Command(CommandType.SAVE, new String[]{fd.getDirectory() + filename}));
         }
     }
 
@@ -104,7 +104,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         fd.setVisible(true);
         String filename = fd.getFile();
         if (filename != null) {
-            commandListener.OnCommand(new UserCommand(UserCommandType.OPEN, new String[]{fd.getDirectory() + filename}));
+            commandListener.OnCommand(new Command(CommandType.OPEN, new String[]{fd.getDirectory() + filename}));
         }
     }
 
@@ -112,7 +112,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         notifyUser("To launch this game in command line mode, please pass -cli as an argument\nExample: java -jar junglegame.jar -cli");
     }
 
-    private void onGameBoardCommand(UserCommand command) {
+    private void onGameBoardCommand(Command command) {
         commandListener.OnCommand(command);
     }
 
