@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * This class implements the GUI version of UIView
@@ -33,7 +35,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
     public GraphicsUIVIew() {
         super();
         setResizable(false);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setIconImage(ImageLoader.loadImageFromAssets("red_tiger.png"));
         setTitle("Jungle Game");
         gameBoardPanel = new GameBoardPanel();
@@ -116,6 +118,10 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         commandListener.OnCommand(command);
     }
 
+    private void onClose(WindowEvent e) {
+        commandListener.OnCommand(new Command(CommandType.EXIT, null));
+    }
+
     private void addComponents() {
         JPanel toolBarPanel = new JPanel(new BorderLayout());
         JPanel optionBarPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -142,5 +148,11 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         openButton.addActionListener(this::onOpenClicked);
         cliButton.addActionListener(this::onCliClicked);
         gameBoardPanel.setUserCommandListener(this::onGameBoardCommand);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                onClose(e);
+            }
+        });
     }
 }
