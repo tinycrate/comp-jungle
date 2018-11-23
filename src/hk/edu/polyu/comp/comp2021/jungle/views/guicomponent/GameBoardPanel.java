@@ -1,8 +1,11 @@
-package hk.edu.polyu.comp.comp2021.jungle.views;
+package hk.edu.polyu.comp.comp2021.jungle.views.guicomponent;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
 import hk.edu.polyu.comp.comp2021.jungle.models.Coordinates;
 import hk.edu.polyu.comp.comp2021.jungle.models.pieces.Piece;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommand;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandListener;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +17,7 @@ import java.util.Map;
 /**
  * This class draws the game board
  */
-class GameBoardPanel extends JPanel {
+public class GameBoardPanel extends JPanel {
 
     private static final int BOARD_WIDTH_PX = 463;
     private static final int BOARD_HEIGHT_PX = 598;

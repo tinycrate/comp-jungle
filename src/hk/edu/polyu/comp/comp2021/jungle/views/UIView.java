@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.jungle.views;
 
 import hk.edu.polyu.comp.comp2021.jungle.models.Board;
+import hk.edu.polyu.comp.comp2021.jungle.views.usercommand.UserCommandListener;
 
 /**
  * This interface defines the required methods to communicate with the Controllers
