@@ -114,7 +114,6 @@ public class ConsoleUIView implements UIView {
     }
 
     private void printWelcomeMessage() {
-        // TODO: Beautify it
         System.out.format("Welcome!! \nType %s to start a new game \nOr %s to load a saved game.%n", UserCommandType.NEW.getCommandUsage(), UserCommandType.OPEN.getCommandUsage());
     }
 
