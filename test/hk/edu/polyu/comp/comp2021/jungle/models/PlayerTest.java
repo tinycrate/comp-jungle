@@ -9,6 +9,8 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
 
+    private static final String PLAYER_NAME = "Name";
+    private static final String PLAYER_NEW_NAME = "New Name";
     /**
      * Test for creating player by name
      */
@@ -16,7 +18,8 @@ public class PlayerTest {
     public void createPlayer() {
         Player player = new Player("Name");
 
-        assertEquals("Name", player.getName());
+        assertEquals(PLAYER_NAME, player.getName());
+        assertEquals(PLAYER_NAME, player.toString());
     }
 
 
@@ -25,9 +28,10 @@ public class PlayerTest {
      */
     @Test
     public void renamePlayer() {
-        Player player = new Player("Name");
-        player.setName("NewName");
+        Player player = new Player(PLAYER_NAME);
+        player.setName(PLAYER_NEW_NAME);
 
-        assertEquals("NewName", player.getName());
+        assertNotEquals(PLAYER_NAME, player.getName());
+        assertEquals(PLAYER_NEW_NAME, player.getName());
     }
 }
