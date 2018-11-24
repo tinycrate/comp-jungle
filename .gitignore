@@ -5,6 +5,7 @@
 /.idea/*
 
 # Keep necessary xml configuration
+!/.idea/.name
 !/.idea/misc.xml
 !/.idea/inspectionProfiles/
 !/.idea/runConfigurations/

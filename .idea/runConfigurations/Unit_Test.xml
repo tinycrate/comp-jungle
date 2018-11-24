@@ -1,14 +1,13 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Application CLI" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="hk.edu.polyu.comp.comp2021.jungle.Application" />
-    <module name="jungle_main" />
-    <option name="PROGRAM_PARAMETERS" value="-cli" />
+  <configuration default="false" name="Unit Test" type="JUnit" factoryName="JUnit">
+    <module name="jungle_test" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="hk.edu.polyu.comp.comp2021.jungle.models.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
+    <option name="TEST_OBJECT" value="package" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
