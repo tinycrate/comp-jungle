@@ -6,10 +6,8 @@ stages:
   - deploy
 
 cache:
-  key: ${CI_COMMIT_REF_SLUG}
   paths:
-  - $HOME/.gradle
-  - .gradle
+  - .gradle/
 
 compile:
   stage: build
