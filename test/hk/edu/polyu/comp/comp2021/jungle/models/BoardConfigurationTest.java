@@ -43,7 +43,9 @@ public class BoardConfigurationTest {
 
         BoardConfiguration config = BoardConfiguration.getDefault(playerA, playerB);
         Board board = new Board(config);
-        BoardConfiguration.save(board, path);
+
+        boolean save = BoardConfiguration.save(board, path);
+        assertTrue(save);
 
         BoardConfiguration loadConfig = BoardConfiguration.load(path);
 
@@ -53,6 +55,18 @@ public class BoardConfigurationTest {
         assertEquals(PLAYER_NAME_A, loadConfig.getCurrentPlayer().getName());
     }
 
+
+    /**
+     * Test for null board configuration save.
+     */
+    @Test
+    public void testConfigurationSaveFailed() {
+        String path = System.getProperty("java.io.tmpdir") + "/.awefaoiwjfoawiejf/test.save";
+        BoardConfiguration config = BoardConfiguration.getDefault(playerA, playerB);
+        Board board = new Board(config);
+        assertFalse(BoardConfiguration.save(board, path));
+        assertFalse(BoardConfiguration.save(null, path));
+    }
 
     /**
      * Test for board configuration load non-exist file.
