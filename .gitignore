@@ -5,8 +5,8 @@
 /.idea/*
 
 # Keep necessary xml configuration
-!/.idea/.name
 !/.idea/misc.xml
+!/.idea/gradle.xml
 !/.idea/inspectionProfiles/
 !/.idea/runConfigurations/
 !/.idea/artifacts/
