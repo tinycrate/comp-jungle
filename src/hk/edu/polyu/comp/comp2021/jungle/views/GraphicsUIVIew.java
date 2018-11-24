@@ -110,7 +110,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
     }
 
     private void onCliClicked(ActionEvent e) {
-        notifyUser("To launch this game in command line mode, please pass -cli as an argument\nExample: java -jar junglegame.jar -cli");
+        notifyUser("To launch this game in command line mode, please pass -cli as an argument\nExample: java -jar JungleGame.jar -cli");
     }
 
     private void onGameBoardCommand(Command command) {
