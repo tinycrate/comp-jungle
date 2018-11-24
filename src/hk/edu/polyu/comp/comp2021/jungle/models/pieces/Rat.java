@@ -50,10 +50,10 @@ public class Rat extends Piece {
             return false;
         }
 
-        // Rats can only eat animals in the trap or Elephants
+        // Rats can only eat animals in the trap, Elephants or Rats
         if (destination.isOccupied()) {
             Piece opponent = destination.getOccupiedPiece();
-            return opponent.isWeakenByTrap(board) || opponent instanceof Elephant;
+            return opponent.isWeakenByTrap(board) || opponent instanceof Elephant || opponent instanceof Rat;
         }
 
         return true;
