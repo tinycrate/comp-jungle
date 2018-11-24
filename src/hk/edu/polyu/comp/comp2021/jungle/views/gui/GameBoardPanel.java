@@ -60,9 +60,9 @@ public class GameBoardPanel extends JPanel {
         });
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 super.mouseClicked(e);
-                onMouseClicked(e);
+                onMouseReleased(e);
             }
         });
     }
@@ -168,9 +168,10 @@ public class GameBoardPanel extends JPanel {
         setHoveredRect(getCollidedHitbox(e.getPoint()));
     }
 
-    private void onMouseClicked(MouseEvent e) {
+    private void onMouseReleased(MouseEvent e) {
         Rectangle hitbox = getCollidedHitbox(e.getPoint());
         if (hitbox == null) return;
+        if (hitbox != hoveredRect) return;
         Coordinates coords = hitboxToCoords.get(hitbox);
         Piece piece = board.getTile(coords).getOccupiedPiece();
         if (piece != null && piece.getOwner() == board.getCurrentPlayer()) {
