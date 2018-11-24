@@ -5,6 +5,11 @@ stages:
   - test
   - deploy
 
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+  - .gradle/
+
 compile:
   stage: build
   script:
