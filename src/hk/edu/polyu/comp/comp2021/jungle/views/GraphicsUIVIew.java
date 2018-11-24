@@ -71,8 +71,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
 
     @Override
     public String promptUser(String message) {
-        String response = JOptionPane.showInputDialog(null, message, "Jungle Game", JOptionPane.QUESTION_MESSAGE);
-        return (response != null) ? response : "";
+        return JOptionPane.showInputDialog(null, message, "Jungle Game", JOptionPane.QUESTION_MESSAGE);
     }
 
     @Override
