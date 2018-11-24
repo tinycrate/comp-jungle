@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Application GUI" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="hk.edu.polyu.comp.comp2021.jungle.Application" />
-    <module name="jungle" />
+    <module name="jungle_main" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="hk.edu.polyu.comp.comp2021.jungle.*" />
+        <option name="PATTERN" value="hk.edu.polyu.comp.comp2021.jungle.models.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
