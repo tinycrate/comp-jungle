@@ -31,7 +31,7 @@ public interface UIView {
      * Prompts the user for input
      *
      * @param message The message
-     * @return The user input
+     * @return The user input, null if the user cancels the input
      */
     String promptUser(String message);
 

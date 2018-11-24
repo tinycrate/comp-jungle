@@ -61,14 +61,18 @@ public class GameLogicController {
         // Get player names
         Player playerOne, playerTwo;
         while (true) {
-            String name = view.promptUser("Player one name?: ").trim();
+            String name = view.promptUser("Player one name?: ");
+            if (name == null) return;
+            name = name.trim();
             if (name.length() > 0) {
                 playerOne = new Player(name);
                 break;
             }
         }
         while (true) {
-            String name = view.promptUser("Player two name?: ").trim();
+            String name = view.promptUser("Player two name?: ");
+            if (name == null) return;
+            name = name.trim();
             if (name.length() > 0) {
                 playerTwo = new Player(name);
                 break;
