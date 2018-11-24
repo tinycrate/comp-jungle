@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="JungleGame">
+    <output-path>$PROJECT_DIR$/out/artifacts/JungleGame</output-path>
+    <root id="archive" name="JungleGame.jar">
+      <element id="module-output" name="jungle" />
+      <element id="dir-copy" path="$PROJECT_DIR$/resources" />
+    </root>
+  </artifact>
+</component>
