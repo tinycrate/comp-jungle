@@ -2,8 +2,8 @@
   <artifact type="jar" build-on-make="true" name="JungleGame">
     <output-path>$PROJECT_DIR$/out/artifacts/JungleGame</output-path>
     <root id="archive" name="JungleGame.jar">
-      <element id="module-output" name="jungle" />
       <element id="dir-copy" path="$PROJECT_DIR$/resources" />
+      <element id="module-output" name="jungle_main" />
     </root>
   </artifact>
 </component>
