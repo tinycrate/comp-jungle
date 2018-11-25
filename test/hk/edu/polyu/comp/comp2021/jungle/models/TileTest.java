@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
  */
 public class TileTest {
 
-    private boolean triggered = false;
     private Player player, enemy;
     private Piece piece;
 
@@ -57,22 +56,20 @@ public class TileTest {
      */
     @Test
     public void testDenTile() {
-        DenEventListener listener = (Player triggeredPlayer) -> {
-                triggered = true;
-        };
+        TestDenEventListener listener = new TestDenEventListener();
 
         DenTile denTile = new DenTile(player);
         denTile.SubscribeEvent(listener);
         assertEquals("Den", denTile.getTileType().getName());
         assertEquals("穴", denTile.getTileType().getPlaceHolder());
         assertFalse(denTile.isOccupied());
-        assertFalse(triggered);
+        assertFalse(listener.isTriggered());
 
         denTile.setOccupiedPiece(piece);
         assertEquals(player, denTile.getOwner());
         assertEquals(piece, denTile.getOccupiedPiece());
         assertTrue(denTile.isOccupied());
-        assertTrue(triggered);
+        assertTrue(listener.isTriggered());
 
         denTile.UnsubscribeEvent(listener);
 
@@ -84,7 +81,6 @@ public class TileTest {
         assertSame(denTileClone.getOccupiedPiece(), denTile.getOccupiedPiece());
         assertSame(denTileClone.getTileType(), denTile.getTileType());
         assertTrue(denTileClone.isOccupied());
-
     }
 
     /**
