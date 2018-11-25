@@ -1,6 +1,6 @@
 package hk.edu.polyu.comp.comp2021.jungle;
 
-import hk.edu.polyu.comp.comp2021.jungle.controllers.ApplicationController;
+import hk.edu.polyu.comp.comp2021.jungle.controller.ApplicationController;
 
 /**
  * The main class for the Jungle Game

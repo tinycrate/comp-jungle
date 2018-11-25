@@ -3,7 +3,7 @@
     <module name="jungle_test" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="hk.edu.polyu.comp.comp2021.jungle.models.*" />
+        <option name="PATTERN" value="hk.edu.polyu.comp.comp2021.jungle.model.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
