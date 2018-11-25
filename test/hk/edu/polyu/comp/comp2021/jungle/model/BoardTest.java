@@ -85,8 +85,8 @@ public class BoardTest {
      */
     @Test
     public void testDenEvent() {
-        TestDenEventListener listener = new TestDenEventListener();
-        board.subscribeDenEvent(listener);
+        TestGameOverListener listener = new TestGameOverListener();
+        board.subscribeGameOverEvent(listener);
 
         assertFalse(listener.isTriggered());
         assertTrue(board.movePiece(new Coordinates("D8"), new Coordinates("D9")));

@@ -56,10 +56,10 @@ public class TileTest {
      */
     @Test
     public void testDenTile() {
-        TestDenEventListener listener = new TestDenEventListener();
+        TestGameOverListener listener = new TestGameOverListener();
 
         DenTile denTile = new DenTile(player);
-        denTile.SubscribeEvent(listener);
+        denTile.subscribeEvent(listener);
         assertEquals("Den", denTile.getTileType().getName());
         assertEquals("穴", denTile.getTileType().getPlaceHolder());
         assertFalse(denTile.isOccupied());
@@ -71,7 +71,7 @@ public class TileTest {
         assertTrue(denTile.isOccupied());
         assertTrue(listener.isTriggered());
 
-        denTile.UnsubscribeEvent(listener);
+        denTile.unsubscribeEvent(listener);
 
         assertEquals(TileType.DEN, denTile.getTileType());
         assertFalse(denTile.getTileType().isNeutralTile());

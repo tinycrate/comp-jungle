@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.jungle.model.tiles;
 
+import hk.edu.polyu.comp.comp2021.jungle.model.GameOverListener;
 import hk.edu.polyu.comp.comp2021.jungle.model.Player;
 import hk.edu.polyu.comp.comp2021.jungle.model.pieces.Piece;
 
@@ -7,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents a den event tile, which triggers DenEventListener when a piece is successfully moved to
+ * This class represents a den event tile, which triggers GameOverListener when a piece is successfully moved to
  * A DenTile is assigned to each Player
  */
 public class DenTile extends Tile {
 
     private final Player owner;
-    private transient List<DenEventListener> listeners;
+    private transient List<GameOverListener> listeners;
     private Piece occupiedPiece = null;
 
     /**
@@ -37,22 +38,22 @@ public class DenTile extends Tile {
     }
 
     /**
-     * Subscribe to the event via DenEventListener
+     * Subscribe to the event via GameOverListener
      *
      * @param listener The listener
      * @return True if successful
      */
-    public boolean SubscribeEvent(DenEventListener listener) {
+    public boolean subscribeEvent(GameOverListener listener) {
         return getListeners().add(listener);
     }
 
     /**
-     * Unsubscribe from the event by the DenEventListener
+     * Unsubscribe from the event by the GameOverListener
      *
      * @param listener Listener wish to be removed
      * @return True if successful
      */
-    public boolean UnsubscribeEvent(DenEventListener listener) {
+    public boolean unsubscribeEvent(GameOverListener listener) {
         return getListeners().remove(listener);
     }
 
@@ -83,7 +84,7 @@ public class DenTile extends Tile {
     }
 
     private void TriggerEvents(Player triggeredPlayer) {
-        for (DenEventListener listener : getListeners()) {
+        for (GameOverListener listener : getListeners()) {
             listener.OnTrigger(triggeredPlayer);
         }
     }
@@ -92,7 +93,7 @@ public class DenTile extends Tile {
      * Locks the access of listeners behind a getter to lazy load the listeners field if needed
      * This is because the reference of listeners could be set to null after deserialization as constructors will not be called
      */
-    private List<DenEventListener> getListeners() {
+    private List<GameOverListener> getListeners() {
         if (listeners == null) listeners = new ArrayList<>();
         return listeners;
     }

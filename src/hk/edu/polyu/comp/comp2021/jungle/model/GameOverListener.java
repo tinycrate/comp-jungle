@@ -1,12 +1,10 @@
-package hk.edu.polyu.comp.comp2021.jungle.model.tiles;
-
-import hk.edu.polyu.comp.comp2021.jungle.model.Player;
+package hk.edu.polyu.comp.comp2021.jungle.model;
 
 /**
  * Triggers when a player moves to the opponent's den
  */
 @FunctionalInterface
-public interface DenEventListener {
+public interface GameOverListener {
     /**
      * Called when the event is being triggered
      *

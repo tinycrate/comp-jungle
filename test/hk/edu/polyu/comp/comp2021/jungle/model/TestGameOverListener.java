@@ -1,11 +1,9 @@
 package hk.edu.polyu.comp.comp2021.jungle.model;
 
-import hk.edu.polyu.comp.comp2021.jungle.model.tiles.DenEventListener;
-
 /**
- * Test class for DenEventListener
+ * Test class for GameOverListener
  */
-public class TestDenEventListener implements DenEventListener {
+public class TestGameOverListener implements GameOverListener {
 
     private boolean triggered = false;
 

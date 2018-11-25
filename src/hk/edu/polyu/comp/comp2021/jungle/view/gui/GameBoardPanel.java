@@ -180,7 +180,7 @@ public class GameBoardPanel extends JPanel {
             Coordinates origin = board.getCoordinates(selectedPiece);
             java.util.List<Coordinates> availableMoves = board.getAvailableMoves(origin);
             if (availableMoves.contains(coords) && commandListener != null) {
-                commandListener.OnCommand(new Command(CommandType.MOVE, new String[]{origin.toString(), coords.toString()}));
+                commandListener.onCommand(new Command(CommandType.MOVE, new String[]{origin.toString(), coords.toString()}));
                 setSelectedPiece(null);
             }
         }
