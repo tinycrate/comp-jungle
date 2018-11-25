@@ -1,7 +1,7 @@
 /**
- * Jungle game written by 2018-19 COMP2021 Group 23.
+ * Jungle game written by 2018-19 COMP2021 Group 23. <br><br>
  *
- * The root package of the jungle game.
+ * The root package of the jungle game.  <br><br>
  *
  * Project members:
  *  <ul>

@@ -1,5 +1,5 @@
 /**
- * Model of the jungle game.
+ * Model of the jungle game. <br><br>
  *
  * General data class of the jungle game including
  * {@link hk.edu.polyu.comp.comp2021.jungle.models.Board},
