@@ -4,6 +4,9 @@ import hk.edu.polyu.comp.comp2021.jungle.models.pieces.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import static org.junit.Assert.*;
 
 /**
@@ -17,15 +20,16 @@ public class PieceTest {
 
     /**
      * Setup game before doing test
-     * @throws NullPointerException The test game save not exists
+     * @throws UnsupportedEncodingException File path decode may not success
      */
     @Before
-    public void prepare() throws NullPointerException {
-        String s = getClass().getClassLoader().getResource("test.save").getFile();
-        System.out.println(s);
-        config = BoardConfiguration.load(s);
+    public void prepare() throws UnsupportedEncodingException {
+        String file = getClass().getClassLoader().getResource("test.save").getFile();
+        file = URLDecoder.decode(file,"utf-8");
+        config = BoardConfiguration.load(file);
         assertNotNull(config);
 
+        board = new Board(config);
         playerA = config.getPlayerOne();
         playerB = config.getPlayerTwo();
     }
@@ -38,12 +42,6 @@ public class PieceTest {
         Elephant piece = new Elephant(playerA);
         assertEquals(8, piece.getRank());
         assertEquals("象", piece.getSymbol());
-
-        assertFalse(piece.isMoveableTo(new Coordinates("A5"), board));
-        assertFalse(piece.isMoveableTo(new Coordinates("A4"), board));
-        assertFalse(piece.isMoveableTo(new Coordinates("B3"), board));
-        assertTrue(piece.isMoveableTo(new Coordinates("A2"), board));
-
     }
     
     /**
@@ -104,5 +102,55 @@ public class PieceTest {
         Cat piece = new Cat(playerA);
         assertEquals(2, piece.getRank());
         assertEquals("貓", piece.getSymbol());
+    }
+
+    /**
+     * Test for Elephant cannot capture Rat and cannot go into river
+     */
+    @Test
+    public void testElephantMoves() {
+        Coordinates current = board.getCoordinates(playerA, PieceType.ELEPHANT);
+        assertFalse(board.movePiece(current, new Coordinates("A5")));
+        assertFalse(board.movePiece(current, new Coordinates("A4")));
+        assertFalse(board.movePiece(current, new Coordinates("B3")));
+        assertFalse(board.movePiece(current, new Coordinates("A2")));
+    }
+
+    /**
+     * Test for a random piece in trap can be captured
+     */
+    @Test
+    public void testTrapCapture() {
+        Coordinates current = board.getCoordinates(playerA, PieceType.LEOPARD);
+        assertTrue(board.movePiece(current, new Coordinates("D2")));
+    }
+
+    /**
+     * Test for a river-jumper piece can jump over river
+     */
+    @Test
+    public void testRiverJumperPiece() {
+        Coordinates current = board.getCoordinates(playerA, PieceType.TIGER);
+        assertTrue(board.movePiece(current, new Coordinates("A6")));
+    }
+
+    /**
+     * Test for a river-jumper piece blocked by rat in river
+     */
+    @Test
+    public void testRiverJumperPieceBlockedByRat() {
+        Coordinates current = board.getCoordinates(playerA, PieceType.LION);
+        assertFalse(board.movePiece(current, new Coordinates("F7")));
+    }
+
+    /**
+     * Test for a rat in river cannot capture elephant on land, but can move in
+     * river.
+     */
+    @Test
+    public void testRiverRat() {
+        Coordinates current = board.getCoordinates(playerA, PieceType.RAT);
+        assertFalse(board.movePiece(current, new Coordinates("G5")));
+        assertTrue(board.movePiece(current, new Coordinates("E5")));
     }
 }
