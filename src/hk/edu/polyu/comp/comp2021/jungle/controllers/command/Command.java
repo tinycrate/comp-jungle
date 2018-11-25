@@ -1,6 +1,10 @@
 package hk.edu.polyu.comp.comp2021.jungle.controllers.command;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class stores a user command obtained from View
@@ -17,7 +21,7 @@ public final class Command {
     public static Command getCommand(String command) {
         CommandType type = getCommandType(command);
         if (type == null) return null;
-        String[] args = command.trim().split("\\s+");
+        String[] args = splitCommand(command);
         if (args.length <= 0) return null;
         if (args.length != type.getArgsCount() + 1) return null;
         return new Command(type, Arrays.copyOfRange(args, 1, args.length));
@@ -31,13 +35,29 @@ public final class Command {
      * @return The CommandType of the string, null if no matching found
      */
     public static CommandType getCommandType(String command) {
-        String[] args = command.trim().split("\\s+");
+        String[] args = splitCommand(command);
         if (args.length <= 0) return null;
         String commandName = args[0].toUpperCase();
         for (CommandType type : CommandType.values()) {
             if (type.name().equals(commandName)) return type;
         }
         return null;
+    }
+
+    private static String[] splitCommand(String command) {
+        List<String> matches = new ArrayList<>();
+        Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
+        Matcher matcher = regex.matcher(command);
+        while (matcher.find()) {
+            if (matcher.group(1) != null) {
+                matches.add(matcher.group(1));
+            } else if (matcher.group(2) != null) {
+                matches.add(matcher.group(2));
+            } else {
+                matches.add(matcher.group());
+            }
+        }
+        return matches.toArray(new String[]{});
     }
 
     private final CommandType type;
