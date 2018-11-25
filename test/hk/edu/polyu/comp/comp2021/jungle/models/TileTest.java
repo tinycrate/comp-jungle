@@ -26,12 +26,15 @@ public class TileTest {
         enemy = new Player("Enemy");
         piece = new Cat(enemy);
     }
+
     /**
      * test all method in TrapTile
      */
     @Test
     public void testTrapTile() {
         TrapTile trapTile = new TrapTile(player);
+        assertEquals("Trap", trapTile.getTileType().getName());
+        assertEquals("井", trapTile.getTileType().getPlaceHolder());
         assertFalse(trapTile.isOccupied());
 
         trapTile.setOccupiedPiece(piece);
@@ -54,15 +57,14 @@ public class TileTest {
      */
     @Test
     public void testDenTile() {
-        DenEventListener listener = new DenEventListener() {
-            @Override
-            public void OnTrigger(Player triggeredPlayer) {
+        DenEventListener listener = (Player triggeredPlayer) -> {
                 triggered = true;
-            }
         };
 
         DenTile denTile = new DenTile(player);
         denTile.SubscribeEvent(listener);
+        assertEquals("Den", denTile.getTileType().getName());
+        assertEquals("穴", denTile.getTileType().getPlaceHolder());
         assertFalse(denTile.isOccupied());
         assertFalse(triggered);
 
@@ -91,6 +93,8 @@ public class TileTest {
     @Test
     public void testNeutralTile() {
         NeutralTile grassTile = new NeutralTile(TileType.GRASS);
+        assertEquals("Grass", grassTile.getTileType().getName());
+        assertEquals("　", grassTile.getTileType().getPlaceHolder());
         assertFalse(grassTile.isOccupied());
 
         grassTile.setOccupiedPiece(piece);
@@ -109,6 +113,9 @@ public class TileTest {
 
         NeutralTile riverTile = new NeutralTile(TileType.RIVER);
         assertEquals(TileType.RIVER, riverTile.getTileType());
+        assertEquals("River", riverTile.getTileType().getName());
+        assertEquals("～", riverTile.getTileType().getPlaceHolder());
+
     }
 
     /**
