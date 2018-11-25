@@ -10,5 +10,5 @@ public interface CommandListener {
      *
      * @param command The command
      */
-    void OnCommand(Command command);
+    void onCommand(Command command);
 }

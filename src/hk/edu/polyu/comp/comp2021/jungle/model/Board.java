@@ -2,7 +2,6 @@ package hk.edu.polyu.comp.comp2021.jungle.model;
 
 import hk.edu.polyu.comp.comp2021.jungle.model.pieces.Piece;
 import hk.edu.polyu.comp.comp2021.jungle.model.pieces.PieceType;
-import hk.edu.polyu.comp.comp2021.jungle.model.tiles.DenEventListener;
 import hk.edu.polyu.comp.comp2021.jungle.model.tiles.DenTile;
 import hk.edu.polyu.comp.comp2021.jungle.model.tiles.Tile;
 import hk.edu.polyu.comp.comp2021.jungle.model.tiles.TileType;
@@ -30,6 +29,7 @@ public class Board {
     private final Player playerTwo;
 
     private Player currentPlayer;
+    private GameOverListener gameOverListener;
 
     // Additional effort is made to track the coordinatesMap of the piece instead of finding them each time
     private final HashMap<Piece, Coordinates> coordinatesMap = new HashMap<>();
@@ -138,12 +138,13 @@ public class Board {
      *
      * @param listener The event listener
      */
-    public void subscribeDenEvent(DenEventListener listener) {
+    public void subscribeGameOverEvent(GameOverListener listener) {
+        gameOverListener = listener;
         for (int x = 0; x < BOARD_WIDTH; x++) {
             for (int y = 0; y < BOARD_HEIGHT; y++) {
                 Tile tile = tiles[x][y];
                 if (tile.getTileType() == TileType.DEN) {
-                    ((DenTile) tile).SubscribeEvent(listener);
+                    ((DenTile) tile).subscribeEvent(listener);
                 }
             }
         }
@@ -177,7 +178,12 @@ public class Board {
             }
         }
         if (noMoves) {
+            boolean noPiece = true;
+            for (Piece piece : coordinatesMap.keySet()) {
+                if (piece.getOwner() == currentPlayer && coordinatesMap.get(piece) != null) noPiece = false;
+            }
             currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
+            if (noPiece && gameOverListener != null) gameOverListener.OnTrigger(currentPlayer);
             updateMoves();
         }
     }

@@ -13,10 +13,10 @@ public class ApplicationController {
      *
      * @param args Command line arguments
      */
-    public void Run(String[] args) {
+    public void run(String[] args) {
         // starts the game
         UIView view = (args.length > 0 && args[0].equals("-cli")) ? new ConsoleUIView() : new GraphicsUIVIew();
         GameLogicController game = new GameLogicController(view);
-        game.Start();
+        game.start();
     }
 }

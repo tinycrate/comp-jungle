@@ -28,7 +28,7 @@ public class GameLogicController {
     /**
      * Starts the game loop
      */
-    public void Start() {
+    public void start() {
         view.init();
         view.setUserCommandListener(this::onCommand);
     }
@@ -81,7 +81,7 @@ public class GameLogicController {
         // Creates new game
         dirty = true;
         board = new Board(BoardConfiguration.getDefault(playerOne, playerTwo));
-        board.subscribeDenEvent(this::onGameOver);
+        board.subscribeGameOverEvent(this::onGameOver);
         view.updateBoard(board);
     }
 
@@ -94,7 +94,7 @@ public class GameLogicController {
         if (configuration != null) {
             dirty = false;
             board = new Board(configuration);
-            board.subscribeDenEvent(this::onGameOver);
+            board.subscribeGameOverEvent(this::onGameOver);
             view.updateBoard(board);
         } else {
             view.notifyUser("Load game failed! Check your file path and try again? ");
@@ -148,7 +148,7 @@ public class GameLogicController {
 
     private void onGameOver(Player winingPlayer) {
         view.updateBoard(board);
-        view.notifyUser(String.format("%1$s's animals ruin their opponent's den abruptly. %1$s wins!\n(The game will now unfortunately exit becuase that's our project requirement.)", winingPlayer.getName()));
+        view.notifyUser(String.format("%1$s's animals ruin their opponent abruptly. %1$s wins!\n(The game will now unfortunately exit becuase that's our project requirement.)", winingPlayer.getName()));
         System.exit(0);
     }
 

@@ -14,6 +14,6 @@ public class Application {
      */
     public static void main(String[] args) {
         ApplicationController app = new ApplicationController();
-        app.Run(args);
+        app.run(args);
     }
 }

@@ -87,7 +87,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
 
     private void onNewClicked(ActionEvent e) {
         if (commandListener != null) {
-            commandListener.OnCommand(new Command(CommandType.NEW, null));
+            commandListener.onCommand(new Command(CommandType.NEW, null));
         }
     }
 
@@ -96,7 +96,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         fd.setVisible(true);
         String filename = fd.getFile();
         if (filename != null) {
-            commandListener.OnCommand(new Command(CommandType.SAVE, new String[]{fd.getDirectory() + filename}));
+            commandListener.onCommand(new Command(CommandType.SAVE, new String[]{fd.getDirectory() + filename}));
         }
     }
 
@@ -105,7 +105,7 @@ public class GraphicsUIVIew extends JFrame implements UIView {
         fd.setVisible(true);
         String filename = fd.getFile();
         if (filename != null) {
-            commandListener.OnCommand(new Command(CommandType.OPEN, new String[]{fd.getDirectory() + filename}));
+            commandListener.onCommand(new Command(CommandType.OPEN, new String[]{fd.getDirectory() + filename}));
         }
     }
 
@@ -114,11 +114,11 @@ public class GraphicsUIVIew extends JFrame implements UIView {
     }
 
     private void onGameBoardCommand(Command command) {
-        commandListener.OnCommand(command);
+        commandListener.onCommand(command);
     }
 
     private void onClose(WindowEvent e) {
-        commandListener.OnCommand(new Command(CommandType.EXIT, null));
+        commandListener.onCommand(new Command(CommandType.EXIT, null));
     }
 
     private void addComponents() {

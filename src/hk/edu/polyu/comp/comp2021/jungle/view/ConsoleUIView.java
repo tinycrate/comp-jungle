@@ -42,7 +42,7 @@ public class ConsoleUIView implements UIView {
             if (type != null) {
                 Command command = Command.getCommand(commandStr);
                 if (command != null) {
-                    listener.OnCommand(command);
+                    listener.onCommand(command);
                     continue;
                 }
                 System.out.format("Invalid command. Usage: \"%s\"%n", type.getCommandUsage());
