@@ -13,7 +13,7 @@ cache:
 compile:
   stage: build
   script:
-    - ./gradlew --console=plain assemble
+    - ./gradlew --console=plain --stacktrace assemble
   artifacts:
     paths:
         - build/libs/*.jar
@@ -22,7 +22,7 @@ compile:
 unit test:
   stage: test
   script:
-    - ./gradlew --console=plain test
+    - ./gradlew --console=plain --stacktrace test
   artifacts:
     reports:
       junit: build/test-results/test/TEST-*.xml
@@ -30,7 +30,7 @@ unit test:
 coverage and javadoc:
   stage: test
   script:
-    - ./gradlew --console=plain test jacocoTestReport javadoc
+    - ./gradlew --console=plain --stacktrace test jacocoTestReport javadoc
     - cat build/jacoco/html/index.html
   coverage: '/Total.*?([0-9]{1,3})%/'
   artifacts:
